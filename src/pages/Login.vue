@@ -1,6 +1,8 @@
 <template>
   <div class="">
 
+    <img src="./../assets/logo.png" >
+
     <h1>Academic Affairs System of Hainan University</h1>
     <el-form :model="ruleForm" status-icon :rules="rules" ref="ruleForm" label-width="100px" class="demo-ruleForm">
     <el-form-item label="UserName" prop="username">
