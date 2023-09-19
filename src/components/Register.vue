@@ -4,18 +4,18 @@
     
     <br>
 
-    <el-form ref="form" :model="form" :rules="rules">
-      
-      <el-form-item label="UserID" prop="userID">
-        <el-input v-model="form.userID" placeholder="Please enter your ID"></el-input>
+      <el-form  ref="form" :model="form" :rules="rules">
+        <div class="el-all">
+        <el-form-item label="UserID"  prop="userID"   >
+        <el-input v-model="form.userID" placeholder="Please enter your ID" size="medium"  clearable></el-input>
       </el-form-item>
 
       <el-form-item label="Name" prop="userName">
         <el-input v-model="form.userName" placeholder="Please enter your Name"></el-input>
       </el-form-item>
-
+    
       <el-form-item label="Gender" prop="userGender">
-        <el-select v-model.lazy="form.userGender" placeholder="Select your Gender" @blur="validateField('userGender')">
+        <el-select v-model.lazy="form.userGender" placeholder="Select your Gender"  @blur="validateField('userGender')">
           <el-option label="Male" value="Male"></el-option>
           <el-option label="Female" value="Female"></el-option>
         </el-select>
@@ -50,8 +50,8 @@
       <el-form-item label="RepeatPassword" prop="userRePassword">
         <el-input v-model="form.userRePassword" placeholder="Please repeat enter your Password" @blur="validateField('userPassword')"></el-input>
       </el-form-item>
-
-      <el-form-item>
+         </div>
+      <el-form-item class="el-button">
         <el-button type="primary" @click="submitForm">Submit</el-button>
       </el-form-item>
 
@@ -180,8 +180,17 @@ export default {
     }
   }
 }
+
 </script>
 
 <style>
+  .el-all{
+    width:320px;
+    text-align:center;
+    margin-left: 920px;
+  
+  
+  }
 
+ 
 </style>
