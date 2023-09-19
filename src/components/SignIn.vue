@@ -1,18 +1,16 @@
 <template>
-  <div class="">
-
-    <h1 class="text3">Sign Up for an Account </h1>
-    <h1 class="text4">Let's get you all set up so you can start creating your first admission experience</h1>
-  
+  <div class="HN">
+  <H1 class="text_welcome">WELCOME</H1>
     <el-form :model="form" :rules="rules" ref="form">
       <el-form-item class="el_input_name" label="UserID" prop="userID">
-        <el-input  type="text" v-model="form.userID" ></el-input>
+        <el-input  type="text" v-model="form.userID" placeholder="Please enter the UserID" required></el-input>
       </el-form-item>
+
       <el-form-item class="el_input_password" label="Password" prop="userPassword">
-        <el-input  type="password" v-model="form.userPassword"></el-input>
+        <el-input  type="password" v-model="form.userPassword" placeholder="Please enter the password" required show-password></el-input>
       </el-form-item>
       <el-form-item class="el_input_submit">
-        <el-button  type="primary" @click="submitForm('form')">Submit</el-button>
+        <el-button  type="primary" @click="submitForm('form')" style="width: 200px;">Submit</el-button>
       </el-form-item>
     </el-form>
   </div>
@@ -76,39 +74,31 @@ export default {
 </script>
 
 <style>
-.text3{
-  left: 900px;
-  top: 60px;
+.text_welcome{
+  left: 910px;
+  top: 200px;
   width: 271px;
-  height: 39px;
-  font-size: 20px;
+  height: 44px;
+  font-size: 36px;
   font-weight: 700;
   color: rgba(32, 40, 66, 1);
   position: absolute;
 }
-.text4{
-  left: 855px;
-  top: 100px;
-  width: 363px;
-  height: 55px;
-  font-size: 14px;
-  font-weight: 400;
-  color: rgba(32, 40, 66, 1);
-  position: absolute;
-}
 .el_input_name{
-  left: 930px;
-  top: 150px;
+  left: 850px;
+  width:400px;
+  top: 250px;
   position: absolute;
 }
 .el_input_password{
-  left:930px;
-  top: 300px;
+  left:850px;
+  width:400px;
+  top: 340px;
   position: absolute;
 }
 .el_input_submit{
-  left:1000px;
-  top:500px;
+  left:950px;
+  top:460px;
   position: absolute;
 }
 </style>
