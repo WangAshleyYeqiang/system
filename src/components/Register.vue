@@ -137,18 +137,34 @@ export default {
           console.log('表单校验通过');
           
           var userInfo = {
-            userID:this.form.userID,
+            userID:parseInt(this.form.userID),
             userName:this.form.userName,
             userGender:this.form.userGender,
             userPhone:this.form.userPhone,
             userSchool:this.form.userSchool,
             userType:this.form.userType,
+            userPrivilege:1,
             userPassword:hashCode(this.form.userPassword),
             userCreateTime:new Date(),
             userLastLoginTime:'',
             token:''
           }
 
+          axios.post('http://localhost:8081/userInfo/add',userInfo).then(res=>{
+            console.log(res)
+            
+            if(res.data){
+              alert("Register Success")
+            }else{
+              alert("Register Fail")
+            }
+          }).catch(err=>{
+            if(err=='Error: Request failed with status code 500'){
+              alert(`${this.form.userID} already exist`)
+            }
+            console.log(err)
+          })
+          
           //
           console.log(userInfo)
         }else{

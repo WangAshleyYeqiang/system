@@ -2,15 +2,15 @@
   <div class="">
   
     Sign In
-    <el-form :model="ruleForm" status-icon:rules="rules" ref="ruleForm" label-width="100px" class="demo-ruleForm">
-      <el-form-item label="UserID" prop="userid">
-        <el-input type="text" v-model="ruleForm.userid" autocomplete="off"></el-input>
+    <el-form :model="form" :rules="rules" ref="form">
+      <el-form-item label="UserID" prop="userID">
+        <el-input type="text" v-model="form.userID" ></el-input>
       </el-form-item>
-      <el-form-item label="Password" prop="pass">
-        <el-input type="password" v-model="ruleForm.pass" autocomplete="off"></el-input>
+      <el-form-item label="Password" prop="userPassword">
+        <el-input type="password" v-model="form.userPassword"></el-input>
       </el-form-item>
       <el-form-item>
-        <el-button type="primary" @click="submitForm('ruleForm')">Submit</el-button>
+        <el-button type="primary" @click="submitForm('form')">Submit</el-button>
       </el-form-item>
     </el-form>
   </div>
@@ -23,33 +23,16 @@ import hashCode from "./../utils/hash"
 export default {
   name: 'SignIn',
   data() {
-    var validatePass = (rule, value, callback) => {
-      if (value === "") {
-        callback(new Error("Please enter your password"));
-      } else {
-        if (this.ruleForm.checkPass !== "") {
-          this.$refs.ruleForm.validateField("checkPass");
-        }
-        callback();
-      }
-    };
 
-    var validateUserid = (rule, value, callback) => {
-      if (value === "") {
-        callback(new Error("The user id cannot be empty"));
-      } else {
-        callback();
-      }
-    };
 
     return {
-      ruleForm: {
-        pass: "",
-        userid: "",
+      form: {
+        userPassword: "",
+        userID: "",
       },
       rules: {
-        pass: [{ validator: validatePass, trigger: "blur" }],
-        userid: [{ validator: validateUserid, trigger: "blur" }],
+        userPassword: [{ required:true, trigger: "blur" }],
+        userID: [{ required:true, trigger: "blur" }],
       },
     };
   },
@@ -67,6 +50,13 @@ export default {
               if(hashCode(this.ruleForm.pass)==res.data.userPassword){
                 console.log('Log In Success')
                 alert(`${res.data.userName}(${res.data.userID}) Log In Success`);
+                var userInfo = res.data
+                userInfo.userLastLoginTime = new Date()
+                userInfo.token=(new Date().getTime()).toString()
+                axios.put("http://localhost:8081/userInfo/updateUserInfoByUserID?userID="+this.ruleForm.userid,userInfo).then(ress=>{
+                  this.$router.push('/home');
+                  console.log(ress)
+                })
               }else{
                 console.log("Password Error")
                 alert("Password Error")
