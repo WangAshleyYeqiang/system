@@ -23,7 +23,7 @@
 </script>
 
 <style>
-.bg{
+/* .bg{
   background-image: url('./../assets/Login_bg.jpg');
   width: 100%;
   height: 100%;
@@ -42,5 +42,5 @@ text-align: left;
 position: relative;
 top: 150px;
 left: 100px;
-}
+} */
 </style>
