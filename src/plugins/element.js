@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import { Button,Form,FormItem,Input,Select,Option,Container,Header,Aside,Main, 
-    Row, Col, Menu, Submenu, MenuItemGroup, MenuItem} from 'element-ui'
+    Row, Col, Menu, Submenu, MenuItemGroup, MenuItem,Autocomplete} from 'element-ui'
 
 Vue.use(Button)
 Vue.use(Form)
@@ -18,6 +18,6 @@ Vue.use(Menu)
 Vue.use(Submenu)
 Vue.use(MenuItemGroup)
 Vue.use(MenuItem)
-
+Vue.use(Autocomplete)
 
 

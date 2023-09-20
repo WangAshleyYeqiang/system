@@ -10,7 +10,7 @@
         <el-input  type="password" v-model="form.userPassword" placeholder="Please enter the password" required show-password></el-input>
       </el-form-item>
       <el-form-item class="el_input_submit">
-        <el-button  type="primary" @click="submitForm('form')" style="width: 200px;">Submit</el-button>
+        <el-button  type="primary" @click="submitForm('form')" style="width: 400px;">LOG IN</el-button>
       </el-form-item>
     </el-form>
   </div>
@@ -97,7 +97,7 @@ export default {
   position: absolute;
 }
 .el_input_submit{
-  left:950px;
+  left:850px;
   top:460px;
   position: absolute;
 }
