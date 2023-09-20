@@ -1,18 +1,28 @@
 <template>
   <div id="app">
-    <!-- <Login/> -->
   <router-view></router-view>
   </div>
 </template>
 
 <script>
-// import Login from './components/Login'
+import axios from 'axios'
+import { mapState } from 'vuex';
+
 
 export default {
   name: 'app',
-  // components: {
-  //   Login
-  // }
+  computed: {
+    ...mapState(['userInfo'])
+  },
+  mounted() {
+    const userInfo = this.$cookies.get('userInfo');
+    
+    axios.get("http://localhost:8081/userInfo/getUserInfoByUserID?userID="+userInfo.userID).then(res=>{
+      if(res.data.token==userInfo.token){
+        this.$store.commit('setUserInfo', userInfo);
+      }
+    })
+  },
 }
 </script>
 

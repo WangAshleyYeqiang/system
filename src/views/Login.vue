@@ -2,13 +2,19 @@
 
   <div class="bg">
     <h1 class="text1">Academic Affairs System of Hainan University</h1>
-    <h1 class="text2">Already Signed up?</h1>
 
-    <el-button @click="register_onClick" class="el_button_login" style="color: rgba(255, 255, 255, 1); background-color: rgba(53,87,220,1);">Register</el-button>
+    <div v-if="$route.path === '/login/signin'">
+      <h1 class="text2">No account</h1>
 
+      <el-button @click="register_onClick('/login/register')" class="el_button_login" style="color: rgba(255, 255, 255, 1); background-color: rgba(53,87,220,1);">Register</el-button>
 
-    <router-link to='/login/register'>Register</router-link>  <br>
-    <router-link to='/login/signin'>Sign In</router-link>
+    </div>
+    <div v-else>
+      <h1 class="text2">Have account</h1>
+
+      <el-button @click="register_onClick('/login/signin')" class="el_button_login" style="color: rgba(255, 255, 255, 1); background-color: rgba(53,87,220,1);">Sign In</el-button>
+
+    </div>
 
     <div class="">
       <router-view></router-view>
@@ -19,7 +25,6 @@
 </template>
 
 <script>
-  import SignIn from '@/components/SignIn.vue';
   export default {
   
     name: 'Login',
@@ -28,11 +33,11 @@
       input: ''
     }
   },
-  methods:{
-    register_onClick(){
-      this.$router.push('/login/register');
+    methods:{
+      register_onClick(path){
+        this.$router.push(path);
+      }
     }
-  }
   };
   
 </script>
