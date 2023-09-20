@@ -38,22 +38,26 @@ export default {
   },
 
   methods: {
-    submitForm(formName) {
-      this.$refs[formName].validate((valid) => {
+    submitForm(form) {
+      this.$refs[form].validate((valid) => {
         if (valid) {
-          axios.get("http://localhost:8081/userInfo/getUserInfoByUserID?userID="+this.ruleForm.userid).then(res=>{
-            console.log(res)
+          axios.get("http://localhost:8081/userInfo/getUserInfoByUserID?userID="+this.form.userID).then(res=>{
             if(res.data.length==0){
-              console.log(this.ruleForm.userid+' Not Found')
-              alert(this.ruleForm.userid+' Not Found');
+              console.log(this.form.userID+' Not Found')
+              alert(this.form.userID+' Not Found');
             }else{
-              if(hashCode(this.ruleForm.pass)==res.data.userPassword){
+              if(hashCode(this.form.userPassword)==res.data.userPassword){
                 console.log('Log In Success')
                 alert(`${res.data.userName}(${res.data.userID}) Log In Success`);
                 var userInfo = res.data
                 userInfo.userLastLoginTime = new Date()
                 userInfo.token=(new Date().getTime()).toString()
-                axios.put("http://localhost:8081/userInfo/updateUserInfoByUserID?userID="+this.ruleForm.userid,userInfo).then(ress=>{
+                // set global data
+                this.$store.commit('setUserInfo', userInfo);
+                // set cookie
+                this.$cookies.set('userInfo', userInfo, { expires: 7 });
+                // update token
+                axios.put("http://localhost:8081/userInfo/updateUserInfoByUserID?userID="+this.form.userID,userInfo).then(ress=>{
                   this.$router.push('/home');
                   console.log(ress)
                 })
