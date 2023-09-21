@@ -96,8 +96,17 @@ export default {
   };
 },
 methods: {
-  querySearchAsync(query) {
-    return this.options.filter(option => option.includes(query));
+  querySearchAsync(queryText,cb) {
+    console.log(this.options)
+    console.log(queryText)
+    
+    var resultArry = this.options
+    resultArry = this.options.filter(val => val.includes(queryText))
+    console.log(resultArry)
+    
+    cb(resultArry)
+    // return 
+    // return this.options.filter(option => option.includes(query));
   },
   // 其他方法
   handleSelect(item) {
