@@ -1,19 +1,32 @@
 <template>
-  <div class="HN">
-  <H1 class="text_welcome">WELCOME</H1>
-    <el-form :model="form" :rules="rules" ref="form">
-      <el-form-item class="el_input_name" label="UserID" prop="userID">
-        <el-input  type="text" v-model="form.userID" placeholder="Please enter the UserID" required></el-input>
-      </el-form-item>
+  <el-row type="flex" justify="center">
+    <div>
 
-      <el-form-item class="el_input_password" label="Password" prop="userPassword">
-        <el-input  type="password" v-model="form.userPassword" placeholder="Please enter the password" required show-password></el-input>
-      </el-form-item>
-      <el-form-item class="el_input_submit">
-        <el-button  type="primary" @click="submitForm('form')" style="width: 400px;">LOG IN</el-button>
-      </el-form-item>
-    </el-form>
-  </div>
+      <el-col push="4">
+        <H1 class="text_welcome">WELCOME</H1>
+      </el-col>
+
+      <el-form :model="form" :rules="rules" ref="form">
+        <el-form-item class="el_input_name custom-label"   label="UserID" prop="userID">
+          <el-input type="text" v-model="form.userID" 
+          placeholder="Please enter the UserID"  
+          required>
+          </el-input>
+        </el-form-item>
+
+        <el-form-item class="el_input_password custom-label"  style="margin-top: 40px;" label="Password" prop="userPassword">
+          <el-input type="password" v-model="form.userPassword"
+          placeholder="Please enter the password" 
+          required
+            show-password>
+          </el-input>
+        </el-form-item>
+        <el-form-item>
+          <el-button type="primary" @click="submitForm('form')" style="width: 400px; margin-top: 40px">LOG IN</el-button>
+        </el-form-item>
+      </el-form>
+    </div>
+  </el-row>
 </template>
 
 <script>
@@ -31,8 +44,8 @@ export default {
         userID: "",
       },
       rules: {
-        userPassword: [{ required:true, trigger: "blur" }],
-        userID: [{ required:true, trigger: "blur" }],
+        userPassword: [{ required: true, trigger: "blur" }],
+        userID: [{ required: true, trigger: "blur" }],
       },
     };
   },
@@ -41,27 +54,27 @@ export default {
     submitForm(form) {
       this.$refs[form].validate((valid) => {
         if (valid) {
-          axios.get("http://localhost:8081/userInfo/getUserInfoByUserID?userID="+this.form.userID).then(res=>{
-            if(res.data.length==0){
-              console.log(this.form.userID+' Not Found')
-              alert(this.form.userID+' Not Found');
-            }else{
-              if(hashCode(this.form.userPassword)==res.data.userPassword){
+          axios.get("http://localhost:8081/userInfo/getUserInfoByUserID?userID=" + this.form.userID).then(res => {
+            if (res.data.length == 0) {
+              console.log(this.form.userID + ' Not Found')
+              alert(this.form.userID + ' Not Found');
+            } else {
+              if (hashCode(this.form.userPassword) == res.data.userPassword) {
                 console.log('Log In Success')
                 alert(`${res.data.userName}(${res.data.userID}) Log In Success`);
                 var userInfo = res.data
                 userInfo.userLastLoginTime = new Date()
-                userInfo.token=(new Date().getTime()).toString()
+                userInfo.token = (new Date().getTime()).toString()
                 // set global data
                 this.$store.commit('setUserInfo', userInfo);
                 // set cookie
                 this.$cookies.set('userInfo', userInfo, { expires: 7 });
                 // update token
-                axios.put("http://localhost:8081/userInfo/updateUserInfoByUserID?userID="+this.form.userID,userInfo).then(ress=>{
+                axios.put("http://localhost:8081/userInfo/updateUserInfoByUserID?userID=" + this.form.userID, userInfo).then(ress => {
                   this.$router.push('/home');
                   console.log(ress)
                 })
-              }else{
+              } else {
                 console.log("Password Error")
                 alert("Password Error")
               }
@@ -78,31 +91,26 @@ export default {
 </script>
 
 <style>
-.text_welcome{
-  left: 910px;
-  top: 200px;
+.custom-label .el-form-item__label {
+  font-family: 'Your Font', sans-serif;
+  font-size: 16px;
+  font-weight: bold;
+  color: #333;
+}
+.text_welcome {
   width: 271px;
   height: 44px;
   font-size: 36px;
   font-weight: 700;
   color: rgba(32, 40, 66, 1);
-  position: absolute;
+  margin-top: 100px;
 }
-.el_input_name{
-  left: 850px;
-  width:400px;
-  top: 250px;
-  position: absolute;
+
+.el_input_name {
+  width: 400px;
 }
-.el_input_password{
-  left:850px;
-  width:400px;
-  top: 340px;
-  position: absolute;
-}
-.el_input_submit{
-  left:850px;
-  top:460px;
-  position: absolute;
+
+.el_input_password {
+  width: 400px;
 }
 </style>
