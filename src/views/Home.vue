@@ -27,7 +27,7 @@
           class="search"
         >
           <template slot-scope="{ item }">
-            <div class="autocomplete-item" @click="handleItemClick(item)">
+            <div class="autocomplete-item" @visible-change='handleSelect'>
               {{ item }}
             </div>
           </template>
@@ -92,7 +92,8 @@ export default {
   data() {
   return {
     searchText: '',
-    options: ['Home page', 'Personal imformation', 'ccc', 'ddd'],
+    options: ['Home page', 'Personal imformation', 'Course selection', 'School timetable','Upgrade serive'],
+    searchResult:[],
   };
 },
 methods: {
@@ -107,9 +108,12 @@ methods: {
     cb(resultArry)
     // return 
     // return this.options.filter(option => option.includes(query));
+     this.searchResult=resultArry;
+
   },
   // 其他方法
   handleSelect(item) {
+    console.log(item.value);
     if (item) {
       // 根据选项值执行不同的跳转操作
       switch (item.value) {
@@ -119,15 +123,19 @@ methods: {
         case 'Personal imformation':
           this.$router.push('/my'); // 跳转到bbb页面
           break;
-        case 'ccc':
+        case 'Course selection':
           this.$router.push('/ccc'); // 跳转到ccc页面
           break;
-        case 'ddd':
+        case 'School timetable':
+          this.$router.push('/ddd'); // 跳转到ddd页面
+          break;
+        case 'Upgrade serive':
           this.$router.push('/ddd'); // 跳转到ddd页面
           break;
         default:
           // 处理未知选项
       }
+      console.log(this.searchResult);
     }
   },
 }
@@ -141,9 +149,9 @@ methods: {
 
 
 .user-name{
-  right:120px;
-  top:25px;
-  position: absolute;
+  left:40%;
+  top:40% ;
+  position: relative;;
 }
 .icon-user{
   right:40px;
