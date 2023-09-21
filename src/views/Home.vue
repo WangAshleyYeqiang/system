@@ -25,6 +25,7 @@
           :fetch-suggestions="querySearchAsync"
           placeholder="Search"
           @select="handleSelect"
+          @keyup.enter="handleSelect"
           class="search"
         >
           <!-- <template slot-scope="{ item }">
@@ -109,26 +110,32 @@ methods: {
   },
   // 其他方法
   handleSelect(item) {
-    console.log(item);
-    // if (item) {
-    //   // 根据选项值执行不同的跳转操作
-    //   switch (item.value) {
-    //     case 'Home page':
-    //       this.$router.push('/hall'); // 跳转到aaa页面
-    //       break;
-    //     case 'Personal imformation':
-    //       this.$router.push('/my'); // 跳转到bbb页面
-    //       break;
-    //     case 'ccc':
-    //       this.$router.push('/ccc'); // 跳转到ccc页面
-    //       break;
-    //     case 'ddd':
-    //       this.$router.push('/ddd'); // 跳转到ddd页面
-    //       break;
-    //     default:
-    //       // 处理未知选项
-    //   }
-    // }
+    console.log('lalala');
+    console.log('lalala');
+
+
+    if (item) {
+      // 根据选项值执行不同的跳转操作
+      switch (item.value) {
+        case 'Home page':
+          this.$router.push('/hall'); // 跳转到aaa页面
+          break;
+        case 'Personal imformation':
+          this.$router.push('/my'); // 跳转到bbb页面
+          break;
+        case 'ccc':
+          this.$router.push('/ccc'); // 跳转到ccc页面
+          break;
+        case 'ddd':
+          this.$router.push('/ddd'); // 跳转到ddd页面
+          break;
+        default:
+          // 处理未知选项
+      }
+    }
+
+
+
   },
 }
 
