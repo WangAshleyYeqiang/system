@@ -7,9 +7,17 @@
         <el-row type="flex" justify="center">
           <img class="logo" src="./../assets/HN.png">
           <el-col :span="12" :md="6" :xs="0" push="5">
-            <el-autocomplete prefix-icon="el-icon-search" v-model="state" :fetch-suggestions="querySearchAsync"
-              placeholder="Search" @select="handleSelect" class="search">
-            </el-autocomplete>
+            <el-autocomplete
+          v-model="queryText"
+          :trigger-on-focus="true"
+          :fetch-suggestions="querySearchAsync"
+          placeholder="Search"
+          @select="handleSelect"
+          @keyup.enter="handleSelect"
+          class="search"
+        >
+  
+        </el-autocomplete>
           </el-col>
 
           <el-col :span="8" :xs="0" push="7">
@@ -36,6 +44,14 @@
 
           </el-col>
         </el-row>
+
+
+
+         
+        
+<!-- ///////////////////////////// -->
+<!-- ///////////////////////// -->
+        
       </el-header>
     </el-container>
 
@@ -83,9 +99,120 @@
 
 <script>
 import 'element-ui/lib/theme-chalk/display.css';
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 export default {
-  name: "Home",
+  name:"Home",
+  data() {
+  return {
+    queryText: '',
+    options: [{value:'Home page'},{value:'Personal imformation'},{value:'ccc'},{value:'ddd'} ],
+  };
+},
+methods: {
+  querySearchAsync(queryText,cb) {
+    console.log(this.options)
+    console.log(queryText)
+    
+    var resultArry = this.options
+    resultArry = this.options.filter(val => val.value.includes(queryText))
+    console.log(resultArry)
+    
+    cb(resultArry)
+  },
+  // 其他方法
+  handleSelect(item) {
+    console.log('lalala');
+    console.log('lalala');
+
+
+    if (item) {
+      // 根据选项值执行不同的跳转操作
+      switch (item.value) {
+        case 'Home page':
+          this.$router.push('/hall'); // 跳转到aaa页面
+          break;
+        case 'Personal imformation':
+          this.$router.push('/my'); // 跳转到bbb页面
+          break;
+        case 'ccc':
+          this.$router.push('/ccc'); // 跳转到ccc页面
+          break;
+        case 'ddd':
+          this.$router.push('/ddd'); // 跳转到ddd页面
+          break;
+        default:
+          // 处理未知选项
+      }
+    }
+
+
+
+  },
 }
+
+
+  };
 </script>
 
 <style>
@@ -94,6 +221,8 @@ export default {
     display: none;
   }
 }
+
+
 
 .user-name {
   font-size: 25px;
