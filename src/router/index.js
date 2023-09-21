@@ -7,6 +7,9 @@ import Login from '@/views/Login.vue';
 import Home from '@/views/Home.vue';
 import Hall from '@/components/Hall.vue';
 import My from '@/components/My.vue';
+import Select from '@/components/Select.vue';
+import Schdule from '@/components/Schdule.vue';
+import Serive from '@/components/Serive.vue';
 
 
 const router = new VueRouter({
@@ -43,8 +46,18 @@ const router = new VueRouter({
 					path: 'my', 
 					component: My,
 				},
-				
-				
+				{
+					path: 'select', 
+					component: Select,
+				},
+				{
+					path: 'schdule', 
+					component: Schdule,
+				},
+				{
+					path: 'serive', 
+					component: Serive,
+				},
 			],
 		}
 	]

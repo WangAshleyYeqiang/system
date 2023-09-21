@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import { Button,Form,FormItem,Input,Select,Option,Container,Header,Aside,Main, 
-    Row, Col, Menu, Submenu, MenuItemGroup, MenuItem,Autocomplete} from 'element-ui'
+    Row, Col, Menu, Submenu, MenuItemGroup, MenuItem,Autocomplete,Message} from 'element-ui'
 
 Vue.use(Button)
 Vue.use(Form)
@@ -21,3 +21,5 @@ Vue.use(MenuItem)
 Vue.use(Autocomplete)
 
 
+
+Vue.prototype.$message = Message;

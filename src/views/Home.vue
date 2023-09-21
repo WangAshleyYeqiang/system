@@ -47,29 +47,29 @@
             <el-col :span="24">
               <el-menu
 
-                default-active="2"
+                :default-active="activeMenu"
                 class="el-menu-vertical-demo "
                 @open="handleOpen"
                 @close="handleClose"
                 >
-                <el-menu-item index="1">
+                <el-menu-item index="1" @click="router_onClick('/home/hall')">
                   <i class="el-icon-house"></i>
-                  <span slot="title" class="el-menu-item.is-active">Home page</span>
+                  <span slot="title" class="el-menu-item.is-active" >Home page</span>
                 </el-menu-item>
-                <el-menu-item index="2">
+                <el-menu-item index="2" @click="router_onClick('/home/my')">
                   <i class="el-icon-user"></i>
                   <span slot="title" class="el-menu-item.is-active">Personal information</span>
                 </el-menu-item>
-                <el-menu-item index="3">
+                <el-menu-item index="3" @click="router_onClick('/home/select')">
                   <i class="el-icon-discount"></i>
                   <span slot="title" class="el-menu-item.is-active">Course selection</span>
                 </el-menu-item>
-                <el-menu-item index="4">
+                <el-menu-item index="4" @click="router_onClick('/home/schdule')">
                   <i class="el-icon-notebook-2"></i>
                   <span slot="title" class="el-menu-item.is-active">School timetable</span>
                 </el-menu-item>
                
-                <el-menu-item index="5">
+                <el-menu-item index="5" @click="router_onClick('/home/serive')">
                   <i class="el-icon-shopping-cart-1"></i>
                   <span slot="title" class="el-menu-item.is-active">Upgrade serive</span>
                 </el-menu-item>
@@ -79,7 +79,7 @@
         </el-aside>
 
         <el-main class="main">
-          Main
+          <router-view></router-view>
         </el-main>
 
       </el-container>
@@ -94,7 +94,8 @@ export default {
   data() {
   return {
     queryText: '',
-    options: [{value:'Home page'},{value:'Personal imformation'},{value:'ccc'},{value:'ddd'} ],
+    options: [{value:'Home page'},{value:'Personal imformation'},{value:'Course selection'},{value:'School timetable'},{value:'Upgrade serive'} ],
+    activeMenu:'1'
   };
 },
 methods: {
@@ -110,24 +111,29 @@ methods: {
   },
   // 其他方法
   handleSelect(item) {
-    console.log('lalala');
-    console.log('lalala');
-
-
+  
     if (item) {
       // 根据选项值执行不同的跳转操作
       switch (item.value) {
         case 'Home page':
-          this.$router.push('/hall'); // 跳转到aaa页面
+          this.$router.push('/home/hall');
+          this.activeMenu=1;
           break;
         case 'Personal imformation':
-          this.$router.push('/my'); // 跳转到bbb页面
+          this.$router.push('/home/my'); // 跳转到bbb页面
+          this.activeMenu=2;
           break;
-        case 'ccc':
-          this.$router.push('/ccc'); // 跳转到ccc页面
+        case 'Course selection':
+          this.$router.push('/home/select'); // 跳转到ccc页面
+          this.activeMenu=3;
           break;
-        case 'ddd':
-          this.$router.push('/ddd'); // 跳转到ddd页面
+        case 'School timetable':
+          this.$router.push('/home/schdule'); // 跳转到ddd页面
+          this.activeMenu=4;
+          break;
+        case 'Upgrade serive':
+          this.$router.push('/home/serive'); // 跳转到ddd页面
+          this.activeMenu=5;
           break;
         default:
           // 处理未知选项
@@ -137,7 +143,22 @@ methods: {
 
 
   },
-}
+  router_onClick(path){
+    //console.log(this.$router)
+
+    if (path==this.$route.path){
+      this.$message({
+                  message: "You already at this page!",
+                  type: "warning",
+                });
+
+      return
+    }
+  console.log(path);
+  this.$router.push(path)
+  
+  }
+},
 
 
   };

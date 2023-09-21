@@ -1,72 +1,128 @@
 <template>
   <div class="HN">
-  <H1 class="text_welcome">WELCOME</H1>
+    <H1 class="text_welcome">WELCOME</H1>
     <el-form :model="form" :rules="rules" ref="form">
       <el-form-item class="el_input_name" label="UserID" prop="userID">
-        <el-input  type="text" v-model="form.userID" placeholder="Please enter the UserID" required></el-input>
+        <el-input
+          type="text"
+          v-model="form.userID"
+          placeholder="Please enter the UserID"
+          required
+        ></el-input>
       </el-form-item>
 
-      <el-form-item class="el_input_password" label="Password" prop="userPassword">
-        <el-input  type="password" v-model="form.userPassword" placeholder="Please enter the password" required show-password></el-input>
+      <el-form-item
+        class="el_input_password"
+        label="Password"
+        prop="userPassword"
+      >
+        <el-input
+          type="password"
+          v-model="form.userPassword"
+          placeholder="Please enter the password"
+          required
+          show-password
+        ></el-input>
       </el-form-item>
       <el-form-item class="el_input_submit">
-        <el-button  type="primary" @click="submitForm('form')" style="width: 400px;">LOG IN</el-button>
+        <el-button
+          type="primary"
+          @click="submitForm('form')"
+          style="width: 400px"
+          >LOG IN</el-button
+        >
       </el-form-item>
     </el-form>
   </div>
 </template>
 
 <script>
-import axios from 'axios'
-import hashCode from "./../utils/hash"
+import axios from "axios";
+import hashCode from "./../utils/hash";
 
 export default {
-  name: 'SignIn',
+  name: "SignIn",
   data() {
-
-
     return {
       form: {
         userPassword: "",
         userID: "",
       },
       rules: {
-        userPassword: [{ required:true, trigger: "blur" }],
-        userID: [{ required:true, trigger: "blur" }],
+        userPassword: [{ required: true, trigger: "blur" }],
+        userID: [{ required: true, trigger: "blur" }],
       },
     };
   },
 
   methods: {
     submitForm(form) {
+
       this.$refs[form].validate((valid) => {
         if (valid) {
-          axios.get("http://localhost:8081/userInfo/getUserInfoByUserID?userID="+this.form.userID).then(res=>{
-            if(res.data.length==0){
-              console.log(this.form.userID+' Not Found')
-              alert(this.form.userID+' Not Found');
-            }else{
-              if(hashCode(this.form.userPassword)==res.data.userPassword){
-                console.log('Log In Success')
-                alert(`${res.data.userName}(${res.data.userID}) Log In Success`);
-                var userInfo = res.data
-                userInfo.userLastLoginTime = new Date()
-                userInfo.token=(new Date().getTime()).toString()
-                // set global data
-                this.$store.commit('setUserInfo', userInfo);
-                // set cookie
-                this.$cookies.set('userInfo', userInfo, { expires: 7 });
-                // update token
-                axios.put("http://localhost:8081/userInfo/updateUserInfoByUserID?userID="+this.form.userID,userInfo).then(ress=>{
-                  this.$router.push('/home');
-                  console.log(ress)
-                })
-              }else{
-                console.log("Password Error")
-                alert("Password Error")
+
+          
+          if (isNaN(parseInt(this.form.userID))){
+            this.$message({
+                      message: `${this.form.userID} Not Found`,
+                      type: "error",
+                    });
+            return
+          }
+
+          axios
+            .get(
+              "http://localhost:8081/userInfo/getUserInfoByUserID?userID=" +
+                this.form.userID
+            )
+            .then((res) => {
+              if (res.data.length == 0) {
+                console.log(this.form.userID + " Not Found");
+                /////////////////////
+                this.$message({
+                  message: `${this.form.userID} Not Found`,
+                  type: "error",
+                });
+
+                //alert(this.form.userID+' Not Found');
+              } else {
+                if (hashCode(this.form.userPassword) == res.data.userPassword) {
+                  console.log("Log In Success");
+                  ///////////////////////////
+                  this.$message({
+                    message: `${res.data.userName}(${res.data.userID}) Log In Success`,
+                    type: "success",
+                  });
+                  ////////////////////////////
+                  // alert(`${res.data.userName}(${res.data.userID}) Log In Success`);
+                  var userInfo = res.data;
+                  userInfo.userLastLoginTime = new Date();
+                  userInfo.token = new Date().getTime().toString();
+                  // set global data
+                  this.$store.commit("setUserInfo", userInfo);
+                  // set cookie
+                  this.$cookies.set("userInfo", userInfo, { expires: 7 });
+                  // update token
+                  axios
+                    .put(
+                      "http://localhost:8081/userInfo/updateUserInfoByUserID?userID=" +
+                        this.form.userID,
+                      userInfo
+                    )
+                    .then((ress) => {
+                      this.$router.push("/home");
+                      console.log(ress);
+                    });
+                } else {
+                  console.log("Password Error");
+                  //////////////
+
+                  this.$message.error("Password Error");
+                  /////////////
+                  //alert("Password Error")
+                }
               }
-            }
-          })
+            });
         } else {
           console.log("error submit!!");
           return false;
@@ -74,11 +130,11 @@ export default {
       });
     },
   },
-}
+};
 </script>
 
 <style>
-.text_welcome{
+.text_welcome {
   left: 910px;
   top: 200px;
   width: 271px;
@@ -88,21 +144,21 @@ export default {
   color: rgba(32, 40, 66, 1);
   position: absolute;
 }
-.el_input_name{
+.el_input_name {
   left: 850px;
-  width:400px;
+  width: 400px;
   top: 250px;
   position: absolute;
 }
-.el_input_password{
-  left:850px;
-  width:400px;
+.el_input_password {
+  left: 850px;
+  width: 400px;
   top: 340px;
   position: absolute;
 }
-.el_input_submit{
-  left:850px;
-  top:460px;
+.el_input_submit {
+  left: 850px;
+  top: 460px;
   position: absolute;
 }
 </style>
