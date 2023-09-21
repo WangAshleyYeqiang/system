@@ -8,7 +8,7 @@
         <i class="el-icon-user icon-user"></i>
         <h1 class="user-name">Tintin</h1>
         
-        <el-autocomplete
+        <!-- <el-autocomplete
           prefix-icon="el-icon-search"
           v-model="state"
           :fetch-suggestions="querySearchAsync"
@@ -16,8 +16,25 @@
           @select="handleSelect"
           class="search"
           >
-          </el-autocomplete>
+          </el-autocomplete> -->
 
+
+          <el-autocomplete
+          v-model="searchText"
+          :fetch-suggestions="querySearchAsync"
+          placeholder="Search"
+          @select="handleSelect"
+          class="search"
+        >
+          <template slot-scope="{ item }">
+            <div class="autocomplete-item" @click="handleItemClick(item)">
+              {{ item }}
+            </div>
+          </template>
+        </el-autocomplete>
+        
+<!-- ///////////////////////////// -->
+<!-- ///////////////////////// -->
         
       </el-header>
 
@@ -69,12 +86,51 @@
 </template>
 
 <script>
+
 export default {
-    name:"Home",
+  name:"Home",
+  data() {
+  return {
+    searchText: '',
+    options: ['Home page', 'Personal imformation', 'ccc', 'ddd'],
+  };
+},
+methods: {
+  querySearchAsync(query) {
+    return this.options.filter(option => option.includes(query));
+  },
+  // 其他方法
+  handleSelect(item) {
+    if (item) {
+      // 根据选项值执行不同的跳转操作
+      switch (item.value) {
+        case 'Home page':
+          this.$router.push('/hall'); // 跳转到aaa页面
+          break;
+        case 'Personal imformation':
+          this.$router.push('/my'); // 跳转到bbb页面
+          break;
+        case 'ccc':
+          this.$router.push('/ccc'); // 跳转到ccc页面
+          break;
+        case 'ddd':
+          this.$router.push('/ddd'); // 跳转到ddd页面
+          break;
+        default:
+          // 处理未知选项
+      }
+    }
+  },
 }
+
+
+  };
 </script>
 
 <style>
+
+
+
 .user-name{
   right:120px;
   top:25px;
