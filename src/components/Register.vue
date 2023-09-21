@@ -155,6 +155,7 @@ export default {
             
             if(res.data){
               alert("Register Success")
+              this.$router.push('/login/signin');
             }else{
               alert("Register Fail")
             }
