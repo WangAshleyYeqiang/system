@@ -2,6 +2,9 @@
 
   <div class="bg">
     <h1 class="text1">Academic Affairs System of Hainan University</h1>
+    <h1 class="text2">Already Signed up?</h1>
+    <img class="bg_HN" src="./../assets/HN.png">
+    <img class="bg_tr" src="./../assets/topright.png">
 
     <div v-if="$route.path === '/login/signin'">
       <h1 class="text2">No account</h1>
@@ -53,6 +56,18 @@
   width:100%;
   height: 100%;
 }
+.bg_HN{
+  top:650px;
+  left:60px;
+  width:250px;
+  position: absolute;
+}
+.bg_tr{
+  top: 500px;
+  left: 1150px;
+  width: 350px;
+  position: absolute;
+}
 .text1{
   left: 117px;
   top: 50px;
@@ -75,7 +90,7 @@
 }
 .el_button_login{
   left: 225px;
-  top: 501px;
+  top: 450px;
   width: 177px;
   height: 48px;
   position: absolute;
