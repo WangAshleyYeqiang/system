@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import { Button,Form,FormItem,Input,Select,Option,Container,Header,Aside,Main, 
-    Row, Col, Menu, Submenu, MenuItemGroup, MenuItem,Autocomplete,Message} from 'element-ui'
+    Row, Col, Menu, Submenu, MenuItemGroup, MenuItem,Autocomplete,Dropdown, DropdownMenu, DropdownItem,Message} from 'element-ui'
 
 Vue.use(Button)
 Vue.use(Form)
@@ -19,7 +19,9 @@ Vue.use(Submenu)
 Vue.use(MenuItemGroup)
 Vue.use(MenuItem)
 Vue.use(Autocomplete)
-
+Vue.use(Dropdown)
+Vue.use(DropdownItem)
+Vue.use(DropdownMenu)
 
 
 Vue.prototype.$message = Message;
