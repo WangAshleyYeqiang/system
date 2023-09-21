@@ -20,17 +20,18 @@
 
 
           <el-autocomplete
-          v-model="searchText"
+          v-model="queryText"
+          :trigger-on-focus="true"
           :fetch-suggestions="querySearchAsync"
           placeholder="Search"
           @select="handleSelect"
           class="search"
         >
-          <template slot-scope="{ item }">
-            <div class="autocomplete-item" @visible-change='handleSelect'>
+          <!-- <template slot-scope="{ item }">
+            <div class="autocomplete-item" @click="handleItemClick(item)">
               {{ item }}
             </div>
-          </template>
+          </template> -->
         </el-autocomplete>
         
 <!-- ///////////////////////////// -->
@@ -91,9 +92,8 @@ export default {
   name:"Home",
   data() {
   return {
-    searchText: '',
-    options: ['Home page', 'Personal imformation', 'Course selection', 'School timetable','Upgrade serive'],
-    searchResult:[],
+    queryText: '',
+    options: [{value:'Home page'},{value:'Personal imformation'},{value:'ccc'},{value:'ddd'} ],
   };
 },
 methods: {
@@ -102,41 +102,33 @@ methods: {
     console.log(queryText)
     
     var resultArry = this.options
-    resultArry = this.options.filter(val => val.includes(queryText))
+    resultArry = this.options.filter(val => val.value.includes(queryText))
     console.log(resultArry)
     
     cb(resultArry)
-    // return 
-    // return this.options.filter(option => option.includes(query));
-     this.searchResult=resultArry;
-
   },
   // 其他方法
   handleSelect(item) {
-    console.log(item.value);
-    if (item) {
-      // 根据选项值执行不同的跳转操作
-      switch (item.value) {
-        case 'Home page':
-          this.$router.push('/hall'); // 跳转到aaa页面
-          break;
-        case 'Personal imformation':
-          this.$router.push('/my'); // 跳转到bbb页面
-          break;
-        case 'Course selection':
-          this.$router.push('/ccc'); // 跳转到ccc页面
-          break;
-        case 'School timetable':
-          this.$router.push('/ddd'); // 跳转到ddd页面
-          break;
-        case 'Upgrade serive':
-          this.$router.push('/ddd'); // 跳转到ddd页面
-          break;
-        default:
-          // 处理未知选项
-      }
-      console.log(this.searchResult);
-    }
+    console.log(item);
+    // if (item) {
+    //   // 根据选项值执行不同的跳转操作
+    //   switch (item.value) {
+    //     case 'Home page':
+    //       this.$router.push('/hall'); // 跳转到aaa页面
+    //       break;
+    //     case 'Personal imformation':
+    //       this.$router.push('/my'); // 跳转到bbb页面
+    //       break;
+    //     case 'ccc':
+    //       this.$router.push('/ccc'); // 跳转到ccc页面
+    //       break;
+    //     case 'ddd':
+    //       this.$router.push('/ddd'); // 跳转到ddd页面
+    //       break;
+    //     default:
+    //       // 处理未知选项
+    //   }
+    // }
   },
 }
 
