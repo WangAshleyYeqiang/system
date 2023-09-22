@@ -51,10 +51,11 @@
         <el-input v-model="form.userRePassword" placeholder="Please repeat enter your Password" @blur="validateField('userPassword')"></el-input>
       </el-form-item>
          </div>
-      <el-form-item class="el-button">
-        <el-button type="primary" @click="submitForm">Submit</el-button>
+      <el-form-item class="el-button" >
+        <el-button type="primary"  @click="submitForm">Submit</el-button>
       </el-form-item>
 
+      
     </el-form>
   </div>
   

@@ -1,6 +1,6 @@
 <template>
   <el-row type="flex" justify="center">
-    <div>
+    <div v-on:keydown.enter="submitForm('form')">
 
       <el-col push="4">
         <H1 class="text_welcome">WELCOME</H1>
@@ -22,7 +22,7 @@
           </el-input>
         </el-form-item>
         <el-form-item>
-          <el-button type="primary" @click="submitForm('form')" style="width: 400px; margin-top: 40px">LOG IN</el-button>
+          <el-button type="primary"  @click="submitForm('form')" style="width: 400px; margin-top: 40px">LOG IN</el-button>
         </el-form-item>
       </el-form>
     </div>
