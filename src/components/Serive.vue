@@ -7,37 +7,60 @@
         <el-col :span="8">
           <div class="vip0-bg">
             <img src="./../assets/word-vip0.png" style="margin-top: 90px; margin-left: -120px;">
+            <div class="vip0-ul">
+              <ul>
+                <li style="text-align: center; font-size: 24px; font-weight: bolder; margin-left: -50px;">NORAML LEVEL</li>
+                <li><i class="el-icon-error icon-error-color"></i> Fast course selection speed<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(Very slow)</li>
+                <li><i class="el-icon-error icon-error-color"></i> Block advertisement</li>
+                <li><i class="el-icon-success icon-right-color"></i> When members are full<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Maybe kicked off the list</li>
+                <li><i class="el-icon-error icon-error-color"></i> More exquisite timeable</li>
+              </ul>
+              
+            </div>
+            <el-button type="primary" plain style="align-items: center;  width:150px; margin-top: 50px; margin-left: -35px;">Buy It</el-button>
           </div>
 
         </el-col>
         <el-col :span="8" push="1">
           <div class="vip2-bg">
             <img src="./../assets/word-vip2.png" style="margin-top: 90px; margin-left:-120px;">
+            <div class="vip2-ul">
+              <ul>
+                <li style="text-align: center; font-size: 24px; font-weight: bolder; margin-left: -50px;">GOD LEVEL</li>
+                <li><i class="el-icon-success icon-right-color"></i> Fast course selection speed</li>
+                <li><i class="el-icon-success icon-right-color"></i> Block advertisement</li>
+                <li><i class="el-icon-success icon-right-color"></i> When members are full <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;You can kick off VIP0 user</li>
+                <li><i class="el-icon-success icon-right-color"></i> More exquisite timeable</li>
+              </ul>
+              
+            </div>
+            <el-button type="primary" plain style="align-items: center;  width:150px; margin-top: 50px; margin-left: -10px;">Buy It</el-button>
           </div>
 
         </el-col>
         <el-col :span="8" push="2">
           <div class="vip1-bg">
             <img src="./../assets/word-vip1.png" style="margin-top: 90px; margin-left:-120px;">
+            <div class="vip1-ul">
+              <ul>
+                <li style="text-align: center; font-size: 24px; font-weight: bolder; margin-left: -50px;">PRIME LEVEL</li>
+                <li><i class="el-icon-success icon-right-color"></i> Fast course selection speed</li>
+                <li><i class="el-icon-success icon-right-color"></i> Block advertisement</li>
+                <li><i class="el-icon-success icon-right-color"></i> Never kicked off the list</li>
+                <li><i class="el-icon-success icon-right-color"></i> More exquisite timeable</li>
+              </ul>
+              
+            </div>
+            <el-button type="primary" plain style="align-items: center; width:150px; margin-top: 50px; margin-left: -30px;">Buy It</el-button>
           </div>
 
         </el-col>
       </el-row>
     </div>
-    
-    <div>
-      <el-descriptions title="用户信息">
-    <el-descriptions-item label="用户名">kooriookami</el-descriptions-item>
-    <el-descriptions-item label="手机号">18100000000</el-descriptions-item>
-    <el-descriptions-item label="居住地">苏州市</el-descriptions-item>
-    <el-descriptions-item label="备注">
-      <el-tag size="small">学校</el-tag>
-    </el-descriptions-item>
-    <el-descriptions-item label="联系地址">江苏省苏州市吴中区吴中大道 1188 号</el-descriptions-item>
-</el-descriptions>
-    </div>
 
-    
+
+
+
 
   </div>
 </template>
@@ -49,16 +72,56 @@ export default {
 </script>
 
 <style>
-.vip0-bg{
+.vip1-ul ul li{
+  margin-top: 50px;
+}
+
+.vip2-ul ul li{
+  margin-top: 50px;
+}
+.vip0-ul ul li{
+  margin-top: 50px;
+}
+
+
+.icon-right-color{
+  color:rgb(71, 168, 3);
+  /* background-color: white; */
+  
+}
+.icon-error-color{
+  color:red;
+}
+.vip2-ul{
+  text-align: left;
+  margin-top: 100px;
+  margin-left: 25px;
+  line-height: 20px;
+}
+
+.vip1-ul{
+  text-align: left;
+  margin-top: 100px;
+  margin-left: 25px;
+  line-height: 20px;
+}
+.vip0-ul{
+  text-align: left;
+  margin-top: 100px;
+  line-height: 20px;
+  margin-left: 25px;
+}
+.vip0-bg {
   height: 710px;
-  width:300px;
+  width: 300px;
   overflow: visible;
   background-image: url("./../assets/vip0.png");
   background-size: cover;
   background-position: center;
 }
-.vip2-bg{
-   width:300px;
+
+.vip2-bg {
+  width: 300px;
   height: 800px;
   overflow: visible;
   background-image: url("./../assets/vip2.png");
@@ -66,14 +129,16 @@ export default {
   background-position: center;
   margin-top: -90px;
 }
-.vip1-bg{
-  width:300px;
+
+.vip1-bg {
+  width: 300px;
   height: 710px;
   overflow: visible;
   background-image: url("./../assets/vip1.png");
   background-size: cover;
   background-position: center;
 }
+
 .main {
   margin-top: 50px;
   display: flex;
@@ -87,5 +152,4 @@ export default {
   font-size: 36px;
   color: black;
   text-align: right;
-}
-</style>
+}</style>
