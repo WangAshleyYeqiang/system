@@ -9,6 +9,8 @@
           placeholder="Enter your name"
           clearable
           @blur="validateField('yourname')"
+          disabled
+          :value="$store.state.userInfo.userName"
         ></el-input>
       </el-form-item>
 
