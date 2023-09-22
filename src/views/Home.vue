@@ -34,11 +34,11 @@
                 <i class="el-icon-arrow-down el-icon--right el-icon-menu" style="margin-left: 3px;"></i>
               </el-button>
               <el-dropdown-menu slot="dropdown">
-                <el-dropdown-item>Tintin</el-dropdown-item>
-                <el-dropdown-item divided>Personal information</el-dropdown-item>
-                <el-dropdown-item>Course selection</el-dropdown-item>
-                <el-dropdown-item>School timetable</el-dropdown-item>
-                <el-dropdown-item>Upgrade serive</el-dropdown-item>
+                <el-dropdown-item @click.native="router_onClick('/home/hall')">Homepage</el-dropdown-item>
+                <el-dropdown-item @click.native="router_onClick('/home/my')">Personal information</el-dropdown-item>
+                <el-dropdown-item @click.native="router_onClick('/home/select')">Course selection</el-dropdown-item>
+                <el-dropdown-item @click.native="router_onClick('/home/schdule')">School timetable</el-dropdown-item>
+                <el-dropdown-item @click.native="router_onClick('/home/serive')">Upgrade serive</el-dropdown-item>
               </el-dropdown-menu>
             </el-dropdown>
 
@@ -56,7 +56,7 @@
 
       <el-container>
 
-        <el-aside class="aside">
+        <el-aside class="aside" style="width: 200px;">
           <el-row class="tac">
             <el-col :span="24">
               <el-menu
@@ -98,112 +98,11 @@
 
       </el-container>
     </el-container>
-
-    <el-container>
-
-      <el-aside class="aside" style="width: 200px;">
-        <el-row class="tac">
-          <el-col :span="24">
-            <el-menu default-active="2" class="el-menu-vertical-demo " @open="handleOpen" @close="handleClose">
-              <el-menu-item index="1">
-                <i class="el-icon-house"></i>
-                <span slot="title" class="el-menu-item.is-active">Home page</span>
-              </el-menu-item>
-              <el-menu-item index="2">
-                <i class="el-icon-user"></i>
-                <span slot="title" class="el-menu-item.is-active">Personal information</span>
-              </el-menu-item>
-              <el-menu-item index="3">
-                <i class="el-icon-discount"></i>
-                <span slot="title" class="el-menu-item.is-active">Course selection</span>
-              </el-menu-item>
-              <el-menu-item index="4">
-                <i class="el-icon-notebook-2"></i>
-                <span slot="title" class="el-menu-item.is-active">School timetable</span>
-              </el-menu-item>
-
-              <el-menu-item index="5">
-                <i class="el-icon-shopping-cart-1"></i>
-                <span slot="title" class="el-menu-item.is-active">Upgrade serive</span>
-              </el-menu-item>
-            </el-menu>
-          </el-col>
-        </el-row>
-      </el-aside>
-
-      <el-main class="main">
-        Main
-      </el-main>
-    </el-container>
-
-
-
   </div>
 </template>
 
 <script>
 import 'element-ui/lib/theme-chalk/display.css';
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 export default {
   name:"Home",
