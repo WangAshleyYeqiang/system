@@ -12,7 +12,7 @@
           <el-row>
             <el-col :span="24" :md="24">
               <div class="title">
-                <h1 class="text1">Academic Affairs System <br />of Hainan University</h1>
+                <h1 class="text1">Academic Affairs System <br>of Hainan University</h1>
               </div>
             </el-col>
           </el-row>
