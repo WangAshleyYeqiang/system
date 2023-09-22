@@ -20,12 +20,17 @@
         </el-autocomplete>
           </el-col>
 
-          <el-col :span="8" :xs="0" push="7">
-            <i class="el-icon-user icon-user"></i>
+          <el-col :span="8" :xs="0" push="6">
+            <div v-if="$store.state.userInfo.userGender=='Female'">
+            <img  class="avatar" src="./../assets/female.jpg"><img>
+            </div>
+            <div v-else>
+            <img  class="avatar" src="./../assets/male.jpg"><img>
+          </div>
           </el-col>
 
           <el-col :span="4" :xs="0" push="2">
-            <h1 class="user-name">Tintin</h1>
+            <h1 class="user-name">{{$store.state.userInfo.userName}} ({{$store.state.userInfo.userID}})</h1>
           </el-col>
 
           <el-col class="hidden-sm-and-up" :span="4" push="11">
@@ -34,7 +39,9 @@
                 <i class="el-icon-arrow-down el-icon--right el-icon-menu" style="margin-left: 3px;"></i>
               </el-button>
               <el-dropdown-menu slot="dropdown">
-                <el-dropdown-item @click.native="router_onClick('/home/hall')">Homepage</el-dropdown-item>
+                <el-dropdown-item >{{$store.state.userInfo.userName}}</el-dropdown-item>
+
+                <el-dropdown-item divided @click.native="router_onClick('/home/hall')">Homepage</el-dropdown-item>
                 <el-dropdown-item @click.native="router_onClick('/home/my')">Personal information</el-dropdown-item>
                 <el-dropdown-item @click.native="router_onClick('/home/select')">Course selection</el-dropdown-item>
                 <el-dropdown-item @click.native="router_onClick('/home/schdule')">School timetable</el-dropdown-item>
@@ -135,19 +142,19 @@ methods: {
           this.activeMenu=1;
           break;
         case 'Personal imformation':
-          this.$router.push('/home/my'); // 跳转到bbb页面
+          this.$router.push('/home/my'); 
           this.activeMenu=2;
           break;
         case 'Course selection':
-          this.$router.push('/home/select'); // 跳转到ccc页面
+          this.$router.push('/home/select');
           this.activeMenu=3;
           break;
         case 'School timetable':
-          this.$router.push('/home/schdule'); // 跳转到ddd页面
+          this.$router.push('/home/schdule'); 
           this.activeMenu=4;
           break;
         case 'Upgrade serive':
-          this.$router.push('/home/serive'); // 跳转到ddd页面
+          this.$router.push('/home/serive'); 
           this.activeMenu=5;
           break;
         default:
@@ -180,6 +187,14 @@ methods: {
 </script>
 
 <style>
+.avatar{
+  width: 40px;
+  height: 40px;
+  border-radius:20px;
+  margin-top: 1%;
+  margin-left: 10%;
+}
+
 @media (max-width: 768px) {
   .el-aside {
     display: none;
@@ -189,15 +204,17 @@ methods: {
 
 
 .user-name {
-  font-size: 25px;
-  margin-top: 15px;
+  font-size: 18px;
+  margin-top: 20px;
+  color: #fff;
+
 }
 
 .icon-user {
   font-size: xx-large;
   top: 15px;
   margin-top: 10px;
-
+  color: #fff;
 }
 
 .el-menu-vertical-demo .el-menu-item.is-active {
@@ -223,20 +240,20 @@ methods: {
   position: absolute;
   top: 0%;
   width: 100%;
-  border: 1px solid black;
+ /* border-bottom: 1px solid rgb(252, 252, 252);*/
   background-color: rgba(53, 87, 220, 1);
 
 }
 
 .aside {
-  border: 1px solid black;
+ 
   height: 93vmin;
   text-align: left;
   background-color: rgba(245, 246, 250, 1);
 }
 
 .main {
-  border: 1px solid black;
+  
 
 }
 </style>
