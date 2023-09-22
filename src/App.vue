@@ -16,12 +16,16 @@ export default {
   },
   mounted() {
     const userInfo = this.$cookies.get('userInfo');
+    console.log(userInfo,"app.vue")
     
     axios.get("http://localhost:8081/userInfo/getUserInfoByUserID?userID="+userInfo.userID).then(res=>{
+
+        console.log(res.data.token==userInfo.token)
       if(res.data.token==userInfo.token){
         this.$store.commit('setUserInfo', userInfo);
       }
     })
+    console.log(this.$store.state,"app.vue")
   },
 }
 </script>

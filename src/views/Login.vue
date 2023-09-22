@@ -98,6 +98,19 @@ export default {
     register_onClick(path) {
       this.$router.push(path);
     }
+  },
+  mounted(){
+    var that = this
+    setTimeout(function(){
+      if(that.$store.state.userInfo.userID!=''){
+        that.$router.push('/home/hall')
+        that.$message({
+          message:`Auto login ${that.$store.state.userInfo.userName}(${that.$store.state.userInfo.userID}) with browser cookie`,
+          type: 'success'
+        })
+      }
+      // console.log(that.$store.state.userInfo,'login')
+    },1000)
   }
 };
 
