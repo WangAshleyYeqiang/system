@@ -1,6 +1,6 @@
 <template>
-  <div>
-    <el-container>
+  <div style=" height: 92vh; overflow: hidden;">
+    <el-container >
 
       <el-header class="header">
 
@@ -99,8 +99,14 @@
           </el-row>
         </el-aside>
 
-        <el-main class="main">
-          <router-view></router-view>
+        <el-main class="main" style=" margin-top: 0%;">
+          <el-scrollbar style="height: 85%; width: 100%; overflow-x: hidden;">
+            
+           <router-view></router-view>
+
+          </el-scrollbar>
+
+
         </el-main>
 
       </el-container>
@@ -187,6 +193,8 @@ methods: {
 </script>
 
 <style>
+
+
 .avatar{
   width: 40px;
   height: 40px;
@@ -223,10 +231,10 @@ methods: {
 }
 
 .logo {
-  top: 0px;
+  top: 8px;
   position: absolute;
-  left: 20px;
-  width: 200px;
+  left: 3px;
+  width: 150px;
 
 }
 
@@ -253,7 +261,9 @@ methods: {
 }
 
 .main {
-  
+ 
+  /* position: absolute;
+  top: 0; */
 
 }
 </style>
