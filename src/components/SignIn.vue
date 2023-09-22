@@ -103,7 +103,7 @@ export default {
                       userInfo
                     )
                     .then((ress) => {
-                      this.$router.push("/home");
+                      this.$router.push("/home/hall");
                       console.log(ress);
                     });
                 } else {

@@ -185,8 +185,22 @@ methods: {
   console.log(path);
   this.$router.push(path)
   
-  }
+  },
 },
+
+//钩子函数 等home页面开发完成后解除注释
+// mounted(){
+//     setTimeout(() => {
+//       console.log(this.$store.state.userInfo.userID,'home')
+//     if(this.$store.state.userInfo.userID==''){
+//       this.$message({
+//         message:'Please sign in first',
+//         type:'error'
+//       })
+//       this.$router.push('/login/signin')
+//     }
+//     }, 1000);
+//   }
 
 
   };
