@@ -17,11 +17,12 @@
               </ul>
               
             </div>
-            <el-button type="primary" plain style="align-items: center;  width:150px; margin-top: 50px; margin-left: -35px;">Buy It</el-button>
+            <el-button @click="upLevel(2)" :disabled="$store.state.userInfo.userPrivilege==2?true:false"  type="primary" plain style="align-items: center;  width:150px; margin-top: 50px; margin-left: -35px;">
+              {{$store.state.userInfo.userPrivilege==2?'You have it':'Buy it'}}</el-button>
           </div>
 
         </el-col>
-        <el-col :span="8" push="1">
+        <el-col :span="8" :push="1">
           <div class="vip2-bg">
             <img src="./../assets/word-vip2.png" style="margin-top: 90px; margin-left:-120px;">
             <div class="vip2-ul">
@@ -34,11 +35,12 @@
               </ul>
               
             </div>
-            <el-button type="primary" plain style="align-items: center;  width:150px; margin-top: 50px; margin-left: -10px;">Buy It</el-button>
+            <el-button @click="upLevel(4)" :disabled="$store.state.userInfo.userPrivilege==4?true:false" type="primary" plain style="align-items: center;  width:150px; margin-top: 50px; margin-left: -10px;">
+              {{$store.state.userInfo.userPrivilege==4?'You have it':'Buy it'}}</el-button>
           </div>
 
         </el-col>
-        <el-col :span="8" push="2">
+        <el-col :span="8" :push="2">
           <div class="vip1-bg">
             <img src="./../assets/word-vip1.png" style="margin-top: 90px; margin-left:-120px;">
             <div class="vip1-ul">
@@ -51,7 +53,8 @@
               </ul>
               
             </div>
-            <el-button type="primary" plain style="align-items: center; width:150px; margin-top: 50px; margin-left: -30px;">Buy It</el-button>
+            <el-button @click="upLevel(3)" :disabled="$store.state.userInfo.userPrivilege==3?true:false" type="primary" plain style="align-items: center; width:150px; margin-top: 50px; margin-left: -30px;">
+              {{$store.state.userInfo.userPrivilege==3?'You have it':'Buy it'}}</el-button>
           </div>
 
         </el-col>
@@ -66,8 +69,43 @@
 </template>
 
 <script>
+import axios from 'axios';
 export default {
-  name: "Serive"
+  name: "Serive",
+  methods: {
+    upLevel(kinds){
+
+
+
+
+
+      var userInfo=this.$store.state.userInfo;
+      userInfo.userPrivilege=parseInt(kinds)
+      axios.put("http://localhost:8081/userInfo/updateUserInfoByUserID",userInfo ).then(res=>{
+        console.log(res);
+        if (res.data){
+          this.$message({
+            message:"Successfully up to Level VIP"+(parseInt(kinds)-2).toString(),
+            type: 'success'
+          })
+
+          axios.get("http://localhost:8081/userInfo/getUserInfoByUserID?userID="+this.$store.state.userInfo.userID).then(ress=>{
+            console.log(ress)
+            this.$store.state.userInfo=ress.data;
+            this.$cookies.set("userInfo", ress.data, { expires: 7 })
+          })
+        }
+      }).catch(err=>{
+        this.$message({
+            message:"Fail up to Level VIP"+(parseInt(kinds)-2).toString(),
+            type: 'warning'
+          })
+      })
+        //this.$store.state.userInfo.userPrivilege=kinds;
+        
+        return
+    }
+  },
 }
 </script>
 

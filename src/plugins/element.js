@@ -1,7 +1,8 @@
 import Vue from 'vue'
 import { Button,Form,FormItem,Input,Select,Option,Container,Header,Aside,Main, 
     Row, Col, Menu, Submenu, MenuItemGroup, MenuItem,Autocomplete,Dropdown, 
-    DropdownMenu, DropdownItem,Message,Avatar,Scrollbar,Descriptions,DescriptionsItem,Table,TableColumn} from 'element-ui'
+    DropdownMenu, DropdownItem,Message,Avatar,Scrollbar,Descriptions,DescriptionsItem,Table,TableColumn,CheckboxGroup,CheckboxButton} from 'element-ui'
+    
 
 Vue.use(Button)
 Vue.use(Form)
@@ -29,5 +30,7 @@ Vue.use(Descriptions)
 Vue.use(DescriptionsItem)
 Vue.use(Table)
 Vue.use(TableColumn)
+Vue.use(CheckboxGroup)
+Vue.use(CheckboxButton)
 
 Vue.prototype.$message = Message;
