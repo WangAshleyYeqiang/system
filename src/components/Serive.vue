@@ -1,6 +1,5 @@
 <template>
   <div>
-    <h1 class="text3">Super serive</h1>
 
     <div class="main">
       <el-row>
@@ -132,20 +131,20 @@ export default {
 }
 .vip2-ul{
   text-align: left;
-  margin-top: 100px;
+  margin-top: 50px;
   margin-left: 25px;
   line-height: 20px;
 }
 
 .vip1-ul{
   text-align: left;
-  margin-top: 100px;
+  margin-top: 50px;
   margin-left: 25px;
   line-height: 20px;
 }
 .vip0-ul{
   text-align: left;
-  margin-top: 100px;
+  margin-top: 50px;
   line-height: 20px;
   margin-left: 25px;
 }
@@ -165,7 +164,7 @@ export default {
   background-image: url("./../assets/vip2.png");
   background-size: cover;
   background-position: center;
-  margin-top: -90px;
+  margin-top: -50px;
 }
 
 .vip1-bg {
@@ -183,11 +182,4 @@ export default {
   justify-content: center;
   width: 90%
 }
-
-.text3 {
-  width: 723px;
-  height: 87px;
-  font-size: 36px;
-  color: black;
-  text-align: right;
-}</style>
+</style>
