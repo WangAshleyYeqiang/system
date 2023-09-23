@@ -189,6 +189,7 @@ methods: {
 },
 
 //钩子函数 等home页面开发完成后解除注释
+//hhhh
 // mounted(){
 //     setTimeout(() => {
 //       console.log(this.$store.state.userInfo.userID,'home')
@@ -274,10 +275,4 @@ methods: {
   background-color: rgba(245, 246, 250, 1);
 }
 
-.main {
- 
-  /* position: absolute;
-  top: 0; */
-
-}
 </style>
