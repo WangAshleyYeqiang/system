@@ -81,6 +81,9 @@
   </div>
 </template>
 <script>
+import axios from 'axios';
+import parseWeekDay from './../utils/parseWeekDay'
+
 export default {
   props: {
     // 下午节次数
@@ -174,7 +177,85 @@ export default {
     }
   },
   mounted() {
-    this.mergeData()
+    console.log(this.events1)
+    
+    console.log('in')
+    var events1= []
+    var course = {
+      zc: '', //周次
+      xq: '', //星期
+      title: '',  //课程名称
+      class: '',  //课程类型
+      content: '',  //课程时间地点
+      start: '',  //开始节次
+      end: '' //结束节次
+    }
+
+    var userSchdule = ''  //选课ID列表
+    var courseInfo = '' //所有课程-详细信息
+    var courseSchdule = ''  //所有课程-课程表
+    
+    axios.get("http://localhost:8081/userSchedule/list").then(res=>{
+      // 筛选出该学生课表
+      userSchdule = res.data.filter(val=>(val.userID==this.$store.state.userInfo.userID)) 
+      axios.get("http://localhost:8081/courseInfo/list").then(res=>{
+        courseInfo = res.data
+        axios.get("http://localhost:8081/courseSchedule/list").then(res=>{
+          courseSchdule = res.data
+
+          console.log(userSchdule,courseInfo,courseSchdule)
+          for(var i=0;i<userSchdule.length;i++){
+            var tempCourseInfo = ''
+            var tempCourseSchdele = ''
+
+            //取出课程基本信息
+            tempCourseInfo = courseInfo.filter(val=>val.courseID==userSchdule[i].courseID)[0]
+            //取出课程课表信息
+            tempCourseSchdele = courseSchdule.filter(val=>val.courseID==userSchdule[i].courseID)
+
+            console.log(tempCourseInfo,tempCourseSchdele,'111')
+
+            for(var ii=0;ii<tempCourseSchdele.length;ii++){
+              console.log('tempCourseSchdele',ii)
+              var tempCourse = course
+              
+              tempCourse.zc=tempCourseSchdele[ii].courseWeek-1
+              tempCourse.xq=tempCourseSchdele[ii].courseDay
+              tempCourse.title=tempCourseInfo.courseName
+              tempCourse.class=tempCourseInfo.courseType
+              tempCourse.content=`${tempCourseInfo.courseTecher} ${tempCourseSchdele[ii].courseRoom}`
+              tempCourse.start=tempCourseSchdele[ii].courseStartTime
+              tempCourse.end=tempCourseSchdele[ii].courseEndTime
+
+              console.log(tempCourse,ii)
+
+              events1.push(tempCourse)
+            }
+
+            this.events1=events1
+            
+          
+
+
+          }
+          
+          console.log(events1,1111)
+          this.mergeData()
+
+        })
+      })
+    })
+
+    
+
+
+
+
+
+    
+
+    
+   
   },
   watch: {
     events: {
