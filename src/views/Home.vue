@@ -101,7 +101,7 @@
         <el-main class="main" style=" margin-top: 0%;">
           <el-scrollbar style="height: 85%; width: 100%; overflow-x: hidden;">
             
-           <router-view></router-view>
+           <router-view style="height: 100%;"></router-view>
 
           </el-scrollbar>
 
