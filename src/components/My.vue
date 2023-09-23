@@ -117,7 +117,7 @@ My
 <script>
 export default {
   name: "My",
-  meathds:{
+  methods:{
     signout_onClick() {
       this.$cookies.remove("userInfo");
       this.$store.state.userInfo = {
