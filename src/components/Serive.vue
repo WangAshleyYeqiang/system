@@ -17,8 +17,8 @@
               </ul>
               
             </div>
-            <el-button @click="upLevel(2)" :disabled="$store.state.userInfo.userPrivilege>=2?true:false"  type="primary" plain style="align-items: center;  width:150px; margin-top: 50px; margin-left: -35px;">
-              {{$store.state.userInfo.userPrivilege>=2?'You have it':'Buy it'}}</el-button>
+            <el-button @click="upLevel(2)" :disabled="$store.state.userInfo.userPrivilege==2?true:false"  type="primary" plain style="align-items: center;  width:150px; margin-top: 50px; margin-left: -35px;">
+              {{$store.state.userInfo.userPrivilege==2?'You have it':'Buy it'}}</el-button>
           </div>
 
         </el-col>
@@ -53,8 +53,8 @@
               </ul>
               
             </div>
-            <el-button @click="upLevel(3)" :disabled="$store.state.userInfo.userPrivilege>=3?true:false" type="primary" plain style="align-items: center; width:150px; margin-top: 50px; margin-left: -30px;">
-              {{$store.state.userInfo.userPrivilege>=3?'You have it':'Buy it'}}</el-button>
+            <el-button @click="upLevel(3)" :disabled="$store.state.userInfo.userPrivilege==3?true:false" type="primary" plain style="align-items: center; width:150px; margin-top: 50px; margin-left: -30px;">
+              {{$store.state.userInfo.userPrivilege==3?'You have it':'Buy it'}}</el-button>
           </div>
 
         </el-col>
