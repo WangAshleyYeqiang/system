@@ -1,114 +1,57 @@
 <template>
   <div>
-    <div>Personal information</div>
-    <br />
     <el-form ref="form" :model="form" :rules="rules">
-<!--   
-      <el-form :inline="true" :model="formInline" class="demo-form-inline">
-  <el-form-item label="审批人">
-    <el-input v-model="formInline.user" placeholder="审批人"></el-input>
-  </el-form-item>
-  <el-form-item label="活动区域">
-    <el-select v-model="formInline.region" placeholder="活动区域">
-      <el-option label="区域一" value="shanghai"></el-option>
-      <el-option label="区域二" value="beijing"></el-option>
-    </el-select>
-  </el-form-item>
-  <el-form-item> -->
-
-    <!-- <el-form-item label="活动区域">
-    <el-select v-model="sizeForm.region" placeholder="请选择活动区域">
-      <el-option label="区域一" value="shanghai"></el-option>
-      <el-option label="区域二" value="beijing"></el-option>
-    </el-select>
-  </el-form-item>
-  <el-form-item label="活动时间">
-    <el-col :span="11">
-      <el-date-picker type="date" placeholder="选择日期" v-model="sizeForm.date1" style="width: 100%;"></el-date-picker>
-    </el-col>
-    <el-col class="line" :span="2">-</el-col>
-    <el-col :span="11">
-      <el-time-picker placeholder="选择时间" v-model="sizeForm.date2" style="width: 100%;"></el-time-picker>
-    </el-col> 
-  </el-form-item> -->
-
- 
-  <el-descriptions title="Personal information" column="2" label-class-name="my-label" content-class-name="my-content">
-   
-    <el-descriptions-item  label="Name" >Catherine</el-descriptions-item>
-    
-   
-    <el-descriptions-item label="Age">21</el-descriptions-item>
-    
+      <el-descriptions title="Personal information" direction="vertical" :column="4" label-class-name="my-label" border>
+      <el-descriptions-item label="Name">Catherine</el-descriptions-item>
+      <el-descriptions-item label="Age">21</el-descriptions-item>
     <el-descriptions-item label="Student Number">20213003451</el-descriptions-item>
     <el-descriptions-item label="Gender">Female</el-descriptions-item>
     <el-descriptions-item label="Native place">Hainan</el-descriptions-item>
     <el-descriptions-item label="Nationality">Han</el-descriptions-item>
-    <el-descriptions-item label="备注">
-      <el-tag size="small">学校</el-tag> </el-descriptions-item>
-    <el-descriptions-item label="联系地址"> </el-descriptions-item>
+  <el-descriptions-item label="居住地">苏州市</el-descriptions-item>
+  <el-descriptions-item label="备注">
+    <el-tag size="small">海南学校</el-tag>
+  </el-descriptions-item>
+  <el-descriptions-item label="联系地址"> 海南省海口市美兰区人民大道 58号 </el-descriptions-item>
 </el-descriptions>
-<el-descriptions column="1" label-class-name="my-label" content-class-name="my-content">
-  <el-descriptions-item label="Telephone Number">15394587256</el-descriptions-item>
-  <el-descriptions-item label="E-mail">15394587256@.163.com</el-descriptions-item>
-</el-descriptions>
-
-
-
-      <!-- <el-form-item label="Name" prop="yourname">
-        <el-input v-model="form.yourname" clearable
-          @blur="validateField('yourname')"><h1> Catherine</h1> </el-input>
-      </el-form-item>
-
-
- <el-descriptions title="Personal Information" column="2" border>
-  <el-descriptions-item label="user ID">
-    {{$store.state.userInfo.userID}}
-  </el-descriptions-item>
-  <el-descriptions-item label="Name">
-    {{$store.state.userInfo.userName}}
-  </el-descriptions-item>
-  <el-descriptions-item label="Gender">
-    {{$store.state.userInfo.userGender}}
-  </el-descriptions-item>
-  <el-descriptions-item label="Phone">
-    {{$store.state.userInfo.userPhone}}
-  </el-descriptions-item>
-  <el-descriptions-item label="Last LoginTime">
-    {{$store.state.userInfo.userLastLoginTime}}
-  </el-descriptions-item>
-  <el-descriptions-item label="Create Time">
-    {{$store.state.userInfo.userCreateTime}}
-  </el-descriptions-item>
-  <el-descriptions-item label="Password">
-    {{$store.state.userInfo.userPassword}}
-  </el-descriptions-item>
-  <el-descriptions-item label="Privilege">
-    {{$store.state.userInfo.userPrivilege}}
-  </el-descriptions-item>
-  <el-descriptions-item label="user Type">
-    {{$store.state.userInfo.userType}}
-  </el-descriptions-item>
-</el-descriptions>
-
-
-    
-
-      <el-form-item label="Contactway" prop="contactway">
-        <el-input
-          v-model="form.contactway"
-          placeholder="Enter your contact way"
-          clearable
-          @blur="validateField('contactway')"
-        ></el-input>
-      </el-form-item> -->
-
-
-      <el-form-item>
+        <el-form-item>
         <el-cascader :options="options" clearable></el-cascader>
       </el-form-item>
     </el-form>
-My
+<div>
+
+
+  
+  <el-table
+      :data="tableData"
+      style="width: 100%">
+      <el-table-column
+        prop="date"
+        label="日期"
+        width="180">
+      </el-table-column>
+      <el-table-column
+        prop="name"
+        label="姓名"
+        width="180">
+      </el-table-column>
+      <el-table-column
+        prop="address"
+        label="地址">
+      </el-table-column>
+    </el-table>
+  <!-- <el-descriptions class="margin-top" title="Certificate" :column="3" direction="vertical" label-class-name="my-label">
+  <el-descriptions-item label="Type">CET4</el-descriptions-item>
+  <el-descriptions-item label="Grade">610 POINTS</el-descriptions-item>
+  <el-descriptions-item label="PRIZE">National Second -Class Scholarship</el-descriptions-item>
+
+
+  <el-descriptions-item >CET6</el-descriptions-item>
+  <el-descriptions-item >610 POINTS</el-descriptions-item>
+</el-descriptions> -->
+
+<!-- <el-descriptioyy -->
+</div>
 
     <el-button type="danger" plain @click="signout_onClick">Sign out</el-button>
   </div>
@@ -116,9 +59,33 @@ My
 
 <script>
 export default {
-  name: "My"
+      data() {
+        return { 
+          name: "My",
+          tableData: [{
+            date: '2016-05-02',
+            name: '王小虎',
+            address: '上海市普陀区金沙江路 1518 弄'
+          }, {
+            date: '2016-05-04',
+            name: '王小虎',
+            address: '上海市普陀区金沙江路 1517 弄'
+          }, {
+            date: '2016-05-01',
+            name: '王小虎',
+            address: '上海市普陀区金沙江路 1519 弄'
+          }, {
+            date: '2016-05-03',
+            name: '王小虎',
+            address: '上海市普陀区金沙江路 1516 弄'
+          }]
+        }
+      }
+    }
+// export default {
+//  
 
- };
+//  };
 </script>
 
 <style>
@@ -132,5 +99,5 @@ export default {
     border-radius: 9px;
     border-width: 1px; 
     padding: 3px;  
-  }
+  } 
 </style>
