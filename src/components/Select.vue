@@ -1,7 +1,6 @@
 <template>
 <div>
   <div>
-    Course selection
   </div>
   
   <div class="">

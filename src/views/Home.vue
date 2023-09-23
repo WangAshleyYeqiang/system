@@ -6,7 +6,7 @@
 
         <el-row type="flex" justify="center">
           <img class="logo" src="./../assets/HN.png">
-          <el-col :span="12" :md="6" :xs="0" push="5">
+          <el-col :span="12" :md="6" :xs="0" :push="5">
             <el-autocomplete
           v-model="queryText"
           :trigger-on-focus="true"
@@ -20,7 +20,7 @@
         </el-autocomplete>
           </el-col>
 
-          <el-col :span="8" :xs="0" push="6">
+          <el-col :span="8" :xs="0" :push="6">
             <div v-if="$store.state.userInfo.userGender=='Female'">
             <img  class="avatar" src="./../assets/female.jpg"><img>
             </div>
@@ -29,11 +29,11 @@
           </div>
           </el-col>
 
-          <el-col :span="4" :xs="0" push="2">
+          <el-col :span="4" :xs="0" :push="2">
             <h1 class="user-name">{{$store.state.userInfo.userName}} ({{$store.state.userInfo.userID}})</h1>
           </el-col>
 
-          <el-col class="hidden-sm-and-up" :span="4" push="11">
+          <el-col class="hidden-sm-and-up" :span="4" :push="11">
             <el-dropdown>
               <el-button  style="background-color:white; margin-top: 10px; ">
                 <i class="el-icon-arrow-down el-icon--right el-icon-menu" style="margin-left: 3px;"></i>
@@ -70,8 +70,7 @@
 
                 :default-active="activeMenu"
                 class="el-menu-vertical-demo "
-                @open="handleOpen"
-                @close="handleClose"
+             
                 >
                 <el-menu-item index="1" @click="router_onClick('/home/hall')">
                   <i class="el-icon-house"></i>
@@ -145,23 +144,23 @@ methods: {
       switch (item.value) {
         case 'Home page':
           this.$router.push('/home/hall');
-          this.activeMenu=1;
+          this.activeMenu="1";
           break;
         case 'Personal imformation':
           this.$router.push('/home/my'); 
-          this.activeMenu=2;
+          this.activeMenu="2";
           break;
         case 'Course selection':
           this.$router.push('/home/select');
-          this.activeMenu=3;
+          this.activeMenu="3";
           break;
         case 'School timetable':
           this.$router.push('/home/schdule'); 
-          this.activeMenu=4;
+          this.activeMenu="4";
           break;
         case 'Upgrade serive':
           this.$router.push('/home/serive'); 
-          this.activeMenu=5;
+          this.activeMenu="5";
           break;
         default:
           // 处理未知选项
@@ -194,19 +193,19 @@ mounted(){
     console.log(this.$route.path);
     switch (this.$route.path) {
         case '/home/hall':
-          this.activeMenu=1;
+          this.activeMenu="1";
           break;
         case '/home/my':
-          this.activeMenu=2;
+          this.activeMenu="2";
           break;
         case '/home/select':
-          this.activeMenu=3;
+          this.activeMenu="3";
           break;
         case '/home/schdule':
-          this.activeMenu=4;
+          this.activeMenu="4";
           break;
         case '/home/serive':
-          this.activeMenu=5;
+          this.activeMenu="5";
           break;
         default:
           // 处理未知选项

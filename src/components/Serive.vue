@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h1 class="text3">Upgrade your serive</h1>
+    <h1 class="text3">Super serive</h1>
 
     <div class="main">
       <el-row>
@@ -22,7 +22,7 @@
           </div>
 
         </el-col>
-        <el-col :span="8" push="1">
+        <el-col :span="8" :push="1">
           <div class="vip2-bg">
             <img src="./../assets/word-vip2.png" style="margin-top: 90px; margin-left:-120px;">
             <div class="vip2-ul">
@@ -40,7 +40,7 @@
           </div>
 
         </el-col>
-        <el-col :span="8" push="2">
+        <el-col :span="8" :push="2">
           <div class="vip1-bg">
             <img src="./../assets/word-vip1.png" style="margin-top: 90px; margin-left:-120px;">
             <div class="vip1-ul">
