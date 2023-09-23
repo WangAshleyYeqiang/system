@@ -59,33 +59,57 @@
 
 <script>
 export default {
-      data() {
-        return { 
-          name: "My",
-          tableData: [{
-            date: '2016-05-02',
-            name: '王小虎',
-            address: '上海市普陀区金沙江路 1518 弄'
-          }, {
-            date: '2016-05-04',
-            name: '王小虎',
-            address: '上海市普陀区金沙江路 1517 弄'
-          }, {
-            date: '2016-05-01',
-            name: '王小虎',
-            address: '上海市普陀区金沙江路 1519 弄'
-          }, {
-            date: '2016-05-03',
-            name: '王小虎',
-            address: '上海市普陀区金沙江路 1516 弄'
-          }]
-        }
-      }
+  name: "My",
+  data() {
+    return { 
+      tableData: [{
+        date: '2016-05-02',
+        name: '王小虎',
+        address: '上海市普陀区金沙江路 1518 弄'
+      }, {
+        date: '2016-05-04',
+        name: '王小虎',
+        address: '上海市普陀区金沙江路 1517 弄'
+      }, {
+        date: '2016-05-01',
+        name: '王小虎',
+        address: '上海市普陀区金沙江路 1519 弄'
+      }, {
+        date: '2016-05-03',
+        name: '王小虎',
+        address: '上海市普陀区金沙江路 1516 弄'
+      }]
     }
-// export default {
-//  
+  },
+      
+    
+  methods:{
+    signout_onClick() {
+      this.$cookies.remove("userInfo");
+      this.$store.state.userInfo = {
+        userID: "",
+        userName: "",
+        userGender: "",
+        userPhone: "",
+        userSchool: "",
+        userLastLoginTime: "",
+        userCreateTime: "",
+        userPassword: "",
+        userPrivilege: "",
+        userType: "",
+        token: ""
+      };
+      this.$message({
+        message: "Log out success",
+        type: "success"
+      });
+      this.$router.push("/login/signin");
+    }
+      
+  }
 
-//  };
+  
+ };
 </script>
 
 <style>
