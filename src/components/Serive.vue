@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h1 class="text3">Upgrade your serive</h1>
+    <h1 class="text3">Super serive</h1>
 
     <div class="main">
       <el-row>
