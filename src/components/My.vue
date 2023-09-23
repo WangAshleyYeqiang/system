@@ -14,9 +14,15 @@
   </el-descriptions-item>
   <el-descriptions-item label="联系地址"> 海南省海口市美兰区人民大道 58号 </el-descriptions-item>
 </el-descriptions>
+
+<template slot="extra">
+  <el-descriptions-item label="联系地址">江苏省苏州市吴中区吴中大道 1188 号</el-descriptions-item>
+
+</template>
         <el-form-item>
         <el-cascader :options="options" clearable></el-cascader>
       </el-form-item>
+
     </el-form>
 <div>
 
@@ -61,27 +67,7 @@
 <script>
 export default {
   name: "My",
-  data() {
-    return { 
-      tableData: [{
-        date: '2016-05-02',
-        name: '王小虎',
-        address: '上海市普陀区金沙江路 1518 弄'
-      }, {
-        date: '2016-05-04',
-        name: '王小虎',
-        address: '上海市普陀区金沙江路 1517 弄'
-      }, {
-        date: '2016-05-01',
-        name: '王小虎',
-        address: '上海市普陀区金沙江路 1519 弄'
-      }, {
-        date: '2016-05-03',
-        name: '王小虎',
-        address: '上海市普陀区金沙江路 1516 弄'
-      }]
-    }
-  },
+  
       
     
   methods:{
@@ -105,8 +91,28 @@ export default {
         type: "success"
       });
       this.$router.push("/login/signin");
+    },
+      data() {
+    return { 
+      tableData: [{
+        date: '2016-05-02',
+        name: '王小虎',
+        address: '上海市普陀区金沙江路 1518 弄'
+      }, {
+        date: '2016-05-04',
+        name: '王小虎',
+        address: '上海市普陀区金沙江路 1517 弄'
+      }, {
+        date: '2016-05-01',
+        name: '王小虎',
+        address: '上海市普陀区金沙江路 1519 弄'
+      }, {
+        date: '2016-05-03',
+        name: '王小虎',
+        address: '上海市普陀区金沙江路 1516 弄'
+      }]
     }
-      
+  },
   }
 
   
