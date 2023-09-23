@@ -2,7 +2,7 @@
   <el-row type="flex" justify="center">
     <div v-on:keydown.enter="submitForm('form')">
 
-      <el-col push="4">
+      <el-col :push="4">
         <H1 class="text_welcome">WELCOME</H1>
       </el-col>
 

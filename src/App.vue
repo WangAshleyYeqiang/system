@@ -17,7 +17,9 @@ export default {
   mounted() {
     const userInfo = this.$cookies.get('userInfo');
     console.log(userInfo,"app.vue")
-    
+    // if (userInfo.userID==null||userInfo.userID==undefined||userInfo.userID==''){
+    //   return
+    // }
     axios.get("http://localhost:8081/userInfo/getUserInfoByUserID?userID="+userInfo.userID).then(res=>{
 
         console.log(res.data.token==userInfo.token)

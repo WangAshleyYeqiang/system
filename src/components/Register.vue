@@ -3,10 +3,10 @@
    
     <el-row type="flex" justify="center">
       <div v-on:keydown.enter="submitForm('form')">
-      <el-col push="3">
+      <el-col :push="3">
       <h1 class="text_1">Sign up for an Account</h1>
         </el-col>
-      <el-col push="3">
+      <el-col :push="3">
       <h2 class="text_2">Let's get you all set up so you can start creating your first admission experience</h2>
         </el-col>
 
@@ -22,8 +22,8 @@
         </el-input>
       </el-form-item>
     
-      <el-form-item class="el_input_name custom-label" label="Gender" prop="userGender" push="8">
-        <el-select v-model.lazy="form.userGender" placeholder="Select your Gender"  @blur="validateField('userGender')" push="8">
+      <el-form-item class="el_input_name custom-label" label="Gender" prop="userGender" :push="8">
+        <el-select v-model.lazy="form.userGender" placeholder="Select your Gender"  @blur="validateField('userGender')" :push="8">
           <el-option label="Male" value="Male"></el-option>
           <el-option label="Female" value="Female"></el-option>
         </el-select>
