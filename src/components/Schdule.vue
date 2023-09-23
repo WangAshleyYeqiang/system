@@ -2,70 +2,82 @@
   <div>
 
     <div>
-      <el-row >
-        <el-col :span="5">
-          <el-button><i class="el-icon-back"></i></el-button>
-        </el-col>
-        <el-col :span="14">
-          
-        </el-col>
-        <el-col :span="5">
-          <el-button><i class="el-icon-right"></i></el-button>
-        </el-col>
-      </el-row>
+      <h1 style="text-align: center; font-size: 36px;
+      font-weight: 700;">Tintin's Timetable</h1>
     </div>
 
-    <div class="panel">
-      <el-table :data="timetable" :span-method="objectSpanMethod" border
-        :header-cell-style="{ background: '#d9e5fd', color: 'black', fontWeight: 1000 }" :cell-style="tableCellStyle">
-        <el-table-column prop="sjd" label="Time" width="85" align="center">
-        </el-table-column>
-        <el-table-column prop="jc" label="Class" width="80" align="center">
-        </el-table-column>
-        <el-table-column prop="mon" label="MON" align="center">
-          <template slot-scope="scope">
-            <h4>{{ scope.row.mon.title }}</h4>
-            <div v-html="scope.row.mon.content"></div>
-          </template>
-        </el-table-column>
-        <el-table-column prop="tue" label="TUE" align="center">
-          <template slot-scope="scope">
-            <h4>{{ scope.row.tue.title }}</h4>
-            <div v-html="scope.row.tue.content"></div>
-          </template>
-        </el-table-column>
-        <el-table-column prop="wed" label="WED" align="center">
-          <template slot-scope="scope">
-            <h4>{{ scope.row.wed.title }}</h4>
-            <div v-html="scope.row.wed.content"></div>
-          </template>
-        </el-table-column>
-        <el-table-column prop="thu" label="THU" align="center">
-          <template slot-scope="scope">
-            <h4>{{ scope.row.thu.title }}</h4>
-            <div v-html="scope.row.thu.content"></div>
-          </template>
-        </el-table-column>
-        <el-table-column prop="fri" label="FRI" align="center">
-          <template slot-scope="scope">
-            <h4>{{ scope.row.fri.title }}</h4>
-            <div v-html="scope.row.fri.content"></div>
-          </template>
-        </el-table-column>
-        <el-table-column prop="sat" label="SAT" align="center">
-          <template slot-scope="scope">
-            <h4>{{ scope.row.sat.title }}</h4>
-            <div v-html="scope.row.sat.content"></div>
-          </template>
-        </el-table-column>
-        <el-table-column prop="sun" label="SUN" align="center">
-          <template slot-scope="scope">
-            <h4>{{ scope.row.sun.title }}</h4>
-            <div v-html="scope.row.sun.content"></div>
-          </template>
-        </el-table-column>
-      </el-table>
-    </div>
+    <div class="main" style="width: 100%;"> 
+      
+
+      <div class="" style="margin-top: -30px; width: 100%;">
+
+        <div>
+        <el-row>
+          <el-col :span="5">
+            <el-button class="schdule-button" style="background-color:rgb(116, 116, 232);"><i class="el-icon-back" style="color: white;"></i></el-button>
+          </el-col>
+          <el-col :span="14">
+            <p style="margin-top: 15px;">This current week is Week n.</p>
+          </el-col>
+          <el-col :span="5">
+            <el-button class="schdule-button" style="background-color:rgb(116, 116, 232);"><i class="el-icon-right" style="color: white;"></i></el-button>
+          </el-col>
+        </el-row>
+      </div>
+
+        <el-table :data="timetable" :span-method="objectSpanMethod" border
+          :header-cell-style="{ background: '#d9e5fd', color: 'black', fontWeight: 1000 }" :cell-style="tableCellStyle"  style="margin-top: 20px;">
+          <el-table-column prop="sjd" label="Time" width="85" align="center">
+          </el-table-column>
+          <el-table-column prop="jc" label="Class" width="80" align="center">
+          </el-table-column>
+          <el-table-column prop="mon" label="MON" align="center">
+            <template slot-scope="scope">
+              <h4>{{ scope.row.mon.title }}</h4>
+              <div v-html="scope.row.mon.content"></div>
+            </template>
+          </el-table-column>
+          <el-table-column prop="tue" label="TUE" align="center">
+            <template slot-scope="scope">
+              <h4>{{ scope.row.tue.title }}</h4>
+              <div v-html="scope.row.tue.content"></div>
+            </template>
+          </el-table-column>
+          <el-table-column prop="wed" label="WED" align="center">
+            <template slot-scope="scope">
+              <h4>{{ scope.row.wed.title }}</h4>
+              <div v-html="scope.row.wed.content"></div>
+            </template>
+          </el-table-column>
+          <el-table-column prop="thu" label="THU" align="center">
+            <template slot-scope="scope">
+              <h4>{{ scope.row.thu.title }}</h4>
+              <div v-html="scope.row.thu.content"></div>
+            </template>
+          </el-table-column>
+          <el-table-column prop="fri" label="FRI" align="center">
+            <template slot-scope="scope">
+              <h4>{{ scope.row.fri.title }}</h4>
+              <div v-html="scope.row.fri.content"></div>
+            </template>
+          </el-table-column>
+          <el-table-column prop="sat" label="SAT" align="center">
+            <template slot-scope="scope">
+              <h4>{{ scope.row.sat.title }}</h4>
+              <div v-html="scope.row.sat.content"></div>
+            </template>
+          </el-table-column>
+          <el-table-column prop="sun" label="SUN" align="center">
+            <template slot-scope="scope">
+              <h4>{{ scope.row.sun.title }}</h4>
+              <div v-html="scope.row.sun.content"></div>
+            </template>
+          </el-table-column>
+        </el-table>
+      </div>
+    </div>  
+
+   
   </div>
 </template>
 <script>
@@ -357,3 +369,15 @@ export default {
   }
 }
 </script>
+<style>
+.schdule-button{
+  width: 60px;
+}
+.main {
+  margin-top: 50px;
+  width: 100%;
+  height: 100%;
+  
+  
+}
+</style>
