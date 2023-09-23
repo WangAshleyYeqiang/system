@@ -6,6 +6,7 @@
       <div style=" padding: 5px">
          <el-form ref="form" :model="form" :rules="rules">
          <el-descriptions class="margin-top" title="Personal imformation" :column="3" :size="size" border>
+<br>
     <template slot="extra">
     
     </template>
@@ -71,28 +72,17 @@
       
     </el-descriptions-item>
   </el-descriptions>
-<!-- 
-         <el-descriptions title="Personal information" direction="vertical" :column="4" label-class-name="my-label" border>
-         <el-descriptions-item label="Name">Catherine</el-descriptions-item>
-         <el-descriptions-item label="Age">21</el-descriptions-item>
-        <el-descriptions-item label="Student Number">20213003451</el-descriptions-item>
-        <el-descriptions-item label="Gender">Female</el-descriptions-item>
-        <el-descriptions-item label="Native place">Hainan</el-descriptions-item>
-        <el-descriptions-item label="Nationality">Han</el-descriptions-item>
-        <el-descriptions-item label="居住地">苏州市</el-descriptions-item>
-         <el-descriptions-item label="备注">
-          <el-tag size="small">海南大学</el-tag>
-          </el-descriptions-item>
-          <el-descriptions-item label="联系地址"> 海南省海口市美兰区人民大道 58号 </el-descriptions-item>
-  
-            </el-descriptions>  -->
+
           
         </el-form>
         </div>
-
-
+<br>
+<br>
+<br>
+<br>
 <br>
   <el-descriptions title="Certificate" direction="vertical" :column="4"> </el-descriptions>
+<br>
   <div>
         <el-table
            :data="tableData"

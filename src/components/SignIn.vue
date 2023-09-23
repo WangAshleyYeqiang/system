@@ -7,7 +7,7 @@
       </el-col>
 
       <el-form :model="form" :rules="rules" ref="form">
-        <el-form-item class="el_input_name custom-label"   label="UserID" prop="userID">
+        <el-form-item class="el_input_name custom-label" label="UserID" prop="userID">
           <el-input type="text" v-model="form.userID" 
           placeholder="Please enter the UserID"  
           required>
