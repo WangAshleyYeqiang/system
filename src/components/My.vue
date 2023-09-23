@@ -116,8 +116,33 @@ My
 
 <script>
 export default {
-  name: "My"
+  name: "My",
+  meathds:{
+    signout_onClick() {
+      this.$cookies.remove("userInfo");
+      this.$store.state.userInfo = {
+        userID: "",
+        userName: "",
+        userGender: "",
+        userPhone: "",
+        userSchool: "",
+        userLastLoginTime: "",
+        userCreateTime: "",
+        userPassword: "",
+        userPrivilege: "",
+        userType: "",
+        token: ""
+      };
+      this.$message({
+        message: "Log out success",
+        type: "success"
+      });
+      this.$router.push("/login/signin");
+    }
+      
+  }
 
+  
  };
 </script>
 
