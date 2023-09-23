@@ -123,7 +123,7 @@ export default {
   return {
     queryText: '',
     options: [{value:'Home page'},{value:'Personal imformation'},{value:'Course selection'},{value:'School timetable'},{value:'Upgrade serive'} ],
-    activeMenu:'1'
+    activeMenu:''
   };
 },
 methods: {
@@ -188,20 +188,40 @@ methods: {
   },
 },
 
-//钩子函数 等home页面开发完成后解除注释
-//hhhh
-// mounted(){
-//     setTimeout(() => {
-//       console.log(this.$store.state.userInfo.userID,'home')
-//     if(this.$store.state.userInfo.userID==''){
-//       this.$message({
-//         message:'Please sign in first',
-//         type:'error'
-//       })
-//       this.$router.push('/login/signin')
-//     }
-//     }, 1000);
-//   }
+// 钩子函数 等home页面开发完成后解除注释
+// hhhh
+mounted(){
+    console.log(this.$route.path);
+    switch (this.$route.path) {
+        case '/home/hall':
+          this.activeMenu=1;
+          break;
+        case '/home/my':
+          this.activeMenu=2;
+          break;
+        case '/home/select':
+          this.activeMenu=3;
+          break;
+        case '/home/schdule':
+          this.activeMenu=4;
+          break;
+        case '/home/serive':
+          this.activeMenu=5;
+          break;
+        default:
+          // 处理未知选项
+      }
+    // setTimeout(() => {
+    //   console.log(this.$store.state.userInfo.userID,'home')
+    // if(this.$store.state.userInfo.userID==''){
+    //   this.$message({
+    //     message:'Please sign in first',
+    //     type:'error'
+    //   })
+    //   this.$router.push('/login/signin')
+    // }
+    // }, 1000);
+  }
 
 
   };
