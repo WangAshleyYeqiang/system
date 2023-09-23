@@ -1,32 +1,40 @@
 <template>
   <div>
-    <div class="">Register</div>
-    
-    <br>
+   
+    <el-row type="flex" justify="center">
+      <div v-on:keydown.enter="submitForm('form')">
+      <el-col push="3">
+      <h1 class="text_1">Sign up for an Account</h1>
+        </el-col>
+      <el-col push="3">
+      <h2 class="text_2">Let's get you all set up so you can start creating your first admission experience</h2>
+        </el-col>
 
-      <el-form  ref="form" :model="form" :rules="rules">
-        <div class="el-all">
-        <el-form-item label="UserID"  prop="userID"   >
-        <el-input v-model="form.userID" placeholder="Please enter your ID" size="medium"  clearable></el-input>
-      </el-form-item>
+      <el-form :model="form" :rules="rules" ref="form">
+        
+         <el-form-item class="el_input_name custom-label" label="Name"  prop="Name"   >
+        <el-input type="text" v-model="form.userID" placeholder="Please enter your ID" clearable required>
+        </el-input>
+      </el-form-item> 
 
-      <el-form-item label="Name" prop="userName">
-        <el-input v-model="form.userName" placeholder="Please enter your Name"></el-input>
+      <el-form-item class="el_input_name custom-label" label="Student Number" prop="userName">
+        <el-input type="text" v-model="form.userName" placeholder="Enter your Student Number" clearable required>
+        </el-input>
       </el-form-item>
     
-      <el-form-item label="Gender" prop="userGender">
-        <el-select v-model.lazy="form.userGender" placeholder="Select your Gender"  @blur="validateField('userGender')">
+      <el-form-item class="el_input_name custom-label" label="Gender" prop="userGender" push="8">
+        <el-select v-model.lazy="form.userGender" placeholder="Select your Gender"  @blur="validateField('userGender')" push="8">
           <el-option label="Male" value="Male"></el-option>
           <el-option label="Female" value="Female"></el-option>
         </el-select>
       </el-form-item>
 
-      <el-form-item label="Phone" prop="userPhone">
+      <el-form-item class="el_input_name custom-label" label="Phone" prop="userPhone">
         <el-input v-model="form.userPhone" placeholder="Please enter your Phone Number"></el-input>
       </el-form-item>
 
-      <el-form-item label="School" prop="userSchool">
-        <el-select v-model.lazy="form.userSchool" filterable  placeholder="Select your School" @blur="validateField('userSchool')">
+      <el-form-item class="el_input_name custom-label" label="Faculty" prop="userSchool">
+        <el-select v-model.lazy="form.userSchool" filterable  placeholder="Select your Faculty" @blur="validateField('userSchool')">
           <el-option
             v-for="item in selectSchoolList"
             :key="item.value"
@@ -36,27 +44,29 @@
         </el-select>
       </el-form-item>
 
-      <el-form-item label="Type" prop="userType">
+      <el-form-item class="el_input_name custom-label" label="Y_Type" prop="userType">
         <el-select v-model.lazy="form.userType" placeholder="Select your Type" @blur="validateField('userType')">
           <el-option label="Student" value="Student"></el-option>
           <el-option label="Teacher" value="Teacher"></el-option>
         </el-select>
       </el-form-item>
 
-      <el-form-item label="Password" prop="userPassword">
-        <el-input v-model="form.userPassword" placeholder="Please set your Password" @blur="validateField('userRePassword')"></el-input>
+      <el-form-item class="el_input_name custom-label" label="Password" prop="userPassword">
+        <el-input v-model="form.userPassword" placeholder="Please set your Password" @blur="validateField('userRePassword')" show-password></el-input>
       </el-form-item>
 
-      <el-form-item label="RepeatPassword" prop="userRePassword">
-        <el-input v-model="form.userRePassword" placeholder="Please repeat enter your Password" @blur="validateField('userPassword')"></el-input>
+      <el-form-item class="el_input_name custom-label" label="RepeatPassword" prop="userRePassword">
+        <el-input v-model="form.userRePassword" placeholder="Please repeat enter your Password" @blur="validateField('userPassword')" show-password></el-input>
       </el-form-item>
-         </div>
-      <el-form-item class="el-button" >
-        <el-button type="primary"  @click="submitForm">Submit</el-button>
+        
+      <el-form-item class="el_input_name custom-label">
+        <el-button type="primary"  @click="submitForm" style="width: 400px; margin-top: 60px">Submit</el-button>
       </el-form-item>
 
       
     </el-form>
+      </div>
+  </el-row>
   </div>
   
 </template>
@@ -186,13 +196,34 @@ export default {
 </script>
 
 <style>
-  .el-all{
-    width:320px;
-    text-align:center;
-    margin-left: 920px;
+  .text_1 {
+  width: 271px;
+  height: 30px;
+  font-size: 20px;
+  font-weight: 700;
+  color: rgba(32, 40, 66, 1);
+  margin-top: 10px;
+}
+.text_2 {
+  width: 271px;
+  height: 44px;
+  font-size: 14px;
+  font-weight: 400;
+  color: rgba(32, 40, 66, 1);
+  margin-top: 10px;
+}
   
   
-  }
+  .custom-label .el-form-item__label {
+  font-family: 'Your Font', sans-serif;
+  font-size: 10px;
+  font-weight: bold;
+  color: #333;
+}
 
- 
+.el_input_name {
+  width: 250px;
+}
+
+  
 </style>
