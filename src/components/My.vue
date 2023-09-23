@@ -1,73 +1,164 @@
 <template>
   <div>
-    <el-form ref="form" :model="form" :rules="rules">
-      <el-descriptions title="Personal information" direction="vertical" :column="4" label-class-name="my-label" border>
-      <el-descriptions-item label="Name">Catherine</el-descriptions-item>
-      <el-descriptions-item label="Age">21</el-descriptions-item>
-    <el-descriptions-item label="Student Number">20213003451</el-descriptions-item>
-    <el-descriptions-item label="Gender">Female</el-descriptions-item>
-    <el-descriptions-item label="Native place">Hainan</el-descriptions-item>
-    <el-descriptions-item label="Nationality">Han</el-descriptions-item>
-  <el-descriptions-item label="居住地">苏州市</el-descriptions-item>
-  <el-descriptions-item label="备注">
-    <el-tag size="small">海南学校</el-tag>
-  </el-descriptions-item>
-  <el-descriptions-item label="联系地址"> 海南省海口市美兰区人民大道 58号 </el-descriptions-item>
-</el-descriptions>
+    <div class="Personal_imformation"><H1>Personal imformation</H1>
+    </div>
 
-<template slot="extra">
-  <el-descriptions-item label="联系地址">江苏省苏州市吴中区吴中大道 1188 号</el-descriptions-item>
+      <div style=" padding: 5px">
+         <el-form ref="form" :model="form" :rules="rules">
+         <el-descriptions class="margin-top" title="Personal imformation" :column="3" :size="size" border>
+    <template slot="extra">
+    
+    </template>
+    <el-descriptions-item>
+      <template slot="label">
+        UserName
+      </template>
+      Catherine
+    </el-descriptions-item>
+    <el-descriptions-item>
+      <template slot="label">
 
-</template>
-        <el-form-item>
-        <el-cascader :options="options" clearable></el-cascader>
-      </el-form-item>
+        UserID
+      </template>
+      000001
+    </el-descriptions-item>
+    <el-descriptions-item>
+      <template slot="label">
 
-    </el-form>
-<div>
+        Your_Type
+      </template>
+      Student
+    </el-descriptions-item>
+    <el-descriptions-item>
+      <template slot="label">
+      
+        Phone
+      </template>
+      18100000000
+    </el-descriptions-item>
+    <el-descriptions-item>
+      <template slot="label">
+     
+        City
+      </template>
+      海口市
+    </el-descriptions-item>
+    <el-descriptions-item>
+      <template slot="label">
+     
+        备注
+      </template>
+      <el-tag size="small">海南大学</el-tag>
+    </el-descriptions-item>
+    <el-descriptions-item>
+      <template slot="label">
+       
+        School
+      </template>
+      <!-- 18100000000 -->
+    </el-descriptions-item>
+    <el-descriptions-item>
+      <template slot="label">
 
-
+        Location
+      </template>
+      海南省海口市美兰区人民大道 58号 
+    </el-descriptions-item>
+    <el-descriptions-item>
+      <template slot="label">
+      Last Login Time
+      </template>
+      
+    </el-descriptions-item>
+  </el-descriptions>
+<!-- 
+         <el-descriptions title="Personal information" direction="vertical" :column="4" label-class-name="my-label" border>
+         <el-descriptions-item label="Name">Catherine</el-descriptions-item>
+         <el-descriptions-item label="Age">21</el-descriptions-item>
+        <el-descriptions-item label="Student Number">20213003451</el-descriptions-item>
+        <el-descriptions-item label="Gender">Female</el-descriptions-item>
+        <el-descriptions-item label="Native place">Hainan</el-descriptions-item>
+        <el-descriptions-item label="Nationality">Han</el-descriptions-item>
+        <el-descriptions-item label="居住地">苏州市</el-descriptions-item>
+         <el-descriptions-item label="备注">
+          <el-tag size="small">海南大学</el-tag>
+          </el-descriptions-item>
+          <el-descriptions-item label="联系地址"> 海南省海口市美兰区人民大道 58号 </el-descriptions-item>
   
-  <el-table
-      :data="tableData"
-      style="width: 100%">
-      <el-table-column
-        prop="date"
-        label="日期"
-        width="180">
-      </el-table-column>
-      <el-table-column
-        prop="name"
-        label="姓名"
-        width="180">
-      </el-table-column>
-      <el-table-column
-        prop="address"
-        label="地址">
-      </el-table-column>
-    </el-table>
-    111
-  <!-- <el-descriptions class="margin-top" title="Certificate" :column="3" direction="vertical" label-class-name="my-label">
-  <el-descriptions-item label="Type">CET4</el-descriptions-item>
-  <el-descriptions-item label="Grade">610 POINTS</el-descriptions-item>
-  <el-descriptions-item label="PRIZE">National Second -Class Scholarship</el-descriptions-item>
+            </el-descriptions>  -->
+          
+        </el-form>
+        </div>
 
 
-  <el-descriptions-item >CET6</el-descriptions-item>
-  <el-descriptions-item >610 POINTS</el-descriptions-item>
-</el-descriptions> -->
-
-<!-- <el-descriptioyy -->
-</div>
-
-    <el-button type="danger" plain @click="signout_onClick">Sign out</el-button>
+<br>
+  <el-descriptions title="Certificate" direction="vertical" :column="4"> </el-descriptions>
+  <div>
+        <el-table
+           :data="tableData"
+           style="width: 100%">
+          <el-table-column
+            prop="Type"
+            label="Type"
+            width="180">
+       </el-table-column>
+        <el-table-column
+           prop="Grade"
+           label="Grade"
+           width="180">
+        </el-table-column>
+       <el-table-column
+            prop="PRIZE"
+            label="PRIZE">
+        </el-table-column>
+        </el-table>
   </div>
-</template>
+<br> 
+  <!-- <el-descriptions title="Majors" direction="vertical" :column="4"> </el-descriptions>
+  <div style="border: 1px solid rgb(28, 104, 219)">
+        <el-table
+           :data="Majors"
+           style="width: 100%">
+          <el-table-column
+            prop="Type"
+            label=""
+            width="180">
+       </el-table-column>
+        <el-table-column
+           prop="Grade"
+           label=""
+           width="180">
+        </el-table-column>
+       <el-table-column
+            prop="PRIZE"
+            label="">
+        </el-table-column>
+        </el-table>
+  </div> -->
+<br>
+      <el-button type="danger" plain @click="signout_onClick">Sign out</el-button>
 
+    
+</div>
+</template>
 <script>
 export default {
   name: "My",
-  
+  data() {
+    return { 
+      tableData: [{
+        Type: 'CET4',
+        Grade: '610 POINTS',
+        PRIZE: 'National Second -Class Scholarship'
+      }, {
+        Type: 'CET6',
+        Grade: '578 POINTS',
+        PRIZE: 'Third Prize in Group Programming Ladder Tournament'
+      }, 
+      ]
+     
+    }
+  },
       
     
   methods:{
@@ -92,27 +183,7 @@ export default {
       });
       this.$router.push("/login/signin");
     },
-      data() {
-    return { 
-      tableData: [{
-        date: '2016-05-02',
-        name: '王小虎',
-        address: '上海市普陀区金沙江路 1518 弄'
-      }, {
-        date: '2016-05-04',
-        name: '王小虎',
-        address: '上海市普陀区金沙江路 1517 弄'
-      }, {
-        date: '2016-05-01',
-        name: '王小虎',
-        address: '上海市普陀区金沙江路 1519 弄'
-      }, {
-        date: '2016-05-03',
-        name: '王小虎',
-        address: '上海市普陀区金沙江路 1516 弄'
-      }]
-    }
-  },
+      
   }
 
   
@@ -131,4 +202,16 @@ export default {
     border-width: 1px; 
     padding: 3px;  
   } 
+ 
+  .Personal_imformation {
+
+ 
+  /**/ width: 1200px;
+  height: 90px;
+  
+  font-weight: 700px; 
+  font-size: 40px;
+  color: rgb(47, 85, 209);
+  margin-top: 30px;
+}
 </style>
