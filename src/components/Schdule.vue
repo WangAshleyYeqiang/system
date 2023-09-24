@@ -14,18 +14,18 @@
         <div>
         <el-row>
           <el-col :span="5">
-            <el-button class="schdule-button" style="background-color:rgb(116, 116, 232);"><i class="el-icon-back" style="color: white;"></i></el-button>
+            <el-button @click="weekchange(-1)" :disabled="zc<=1?true:false" class="schdule-button" style="background-color:rgb(116, 116, 232);"><i class="el-icon-back" style="color: white;"></i></el-button>
           </el-col>
           <el-col :span="14">
-            <p style="margin-top: 15px;">This current week is Week n.</p>
+            <p style="margin-top: 15px;">This current week is Week {{zc}}.</p>
           </el-col>
           <el-col :span="5">
-            <el-button class="schdule-button" style="background-color:rgb(116, 116, 232);"><i class="el-icon-right" style="color: white;"></i></el-button>
+            <el-button @click="weekchange(1)" :disabled="zc>=20?true:false"  class="schdule-button" style="background-color:rgb(116, 116, 232);"><i class="el-icon-right" style="color: white;"></i></el-button>
           </el-col>
         </el-row>
       </div>
 
-        <el-table :data="timetable" :span-method="objectSpanMethod" border
+        <el-table :data="timetable" :span-method="objectSpanMethod" border 
           :header-cell-style="{ background: '#d9e5fd', color: 'black', fontWeight: 1000 }" :cell-style="tableCellStyle"  style="margin-top: 20px;">
           <el-table-column prop="sjd" label="Time" width="85" align="center">
           </el-table-column>
@@ -104,159 +104,24 @@ export default {
   },
   data() {
     return {
+      loading:true,
       zc: 1,
       // 课程表数据
       timetable: [],
-      events1: [
-        {
-          zc: 1,
-          xq: 1,
-          title: '形势与政治',
-          class: 'sport',
-          content: '1-4节' + '/' + '社会学1班' + '/' + '5教-402室',
-          start: 1,
-          end: 4
-        },
-        {
-          zc: 2,
-          xq: 1,
-          title: '形势与政治',
-          class: 'leisure',
-          content: '9-11节' + '<br>' + '社会学2班' + '<br>' + '5教-401室',
-          start: 9,
-          end: 11
-        },
-        {
-          zc: 1,
-          xq: 3,
-          title: '形势与政治',
-          class: 'sport',
-          content: '5-6节' + '/' + '社会学2班' + '/' + '1教-401室',
-          start: 5,
-          end: 6
-        },
-        {
-          zc: 1,
-          xq: 4,
-          title: '形势与政治',
-          class: 'sport',
-          content: '1-2节' + '/' + '社会学1班' + '/' + '5教-402室',
-          start: 1,
-          end: 2
-        },
-        {
-          zc: 1,
-          xq: 4,
-          title: '形势与政治',
-          class: 'sport',
-          content: '7-8节' + '/' + '社会学1班' + '/' + '5教-402室',
-          start: 7,
-          end: 8
-        },
-        {
-          zc: 1,
-          xq: 5,
-          title: '形势与政治',
-          class: 'sport',
-          content: '社会学1班' + '/' + '5教-402室',
-          start: 3,
-          end: 4
-        },
-        {
-          zc: 1,
-          xq: 5,
-          title: '形势与政治',
-          class: 'sport',
-          content: '5-6节' + '/' + '社会学1班' + '/' + '5教-402室',
-          start: 5,
-          end: 6
-        }
-      ],
+      events1: [],
       hoverOrderArr: [],
-      weeks: ['mon', 'tue', 'wed', 'thu', 'fri', 'sat', 'sun']
+      weeks: ['mon', 'tue', 'wed', 'thu', 'fri', 'sat', 'sun'],
     }
   },
   mounted() {
-    console.log(this.events1)
-    
-    console.log('in')
-    var events1= []
-    var course = {
-      zc: '', //周次
-      xq: '', //星期
-      title: '',  //课程名称
-      class: '',  //课程类型
-      content: '',  //课程时间地点
-      start: '',  //开始节次
-      end: '' //结束节次
-    }
-
-    var userSchdule = ''  //选课ID列表
-    var courseInfo = '' //所有课程-详细信息
-    var courseSchdule = ''  //所有课程-课程表
-    
-    axios.get("http://localhost:8081/userSchedule/list").then(res=>{
-      // 筛选出该学生课表
-      userSchdule = res.data.filter(val=>(val.userID==this.$store.state.userInfo.userID)) 
-      axios.get("http://localhost:8081/courseInfo/list").then(res=>{
-        courseInfo = res.data
-        axios.get("http://localhost:8081/courseSchedule/list").then(res=>{
-          courseSchdule = res.data
-
-          console.log(userSchdule,courseInfo,courseSchdule)
-          for(var i=0;i<userSchdule.length;i++){
-            var tempCourseInfo = ''
-            var tempCourseSchdele = ''
-
-            //取出课程基本信息
-            tempCourseInfo = courseInfo.filter(val=>val.courseID==userSchdule[i].courseID)[0]
-            //取出课程课表信息
-            tempCourseSchdele = courseSchdule.filter(val=>val.courseID==userSchdule[i].courseID)
-
-            console.log(tempCourseInfo,tempCourseSchdele,'111')
-
-            for(var ii=0;ii<tempCourseSchdele.length;ii++){
-              console.log('tempCourseSchdele',ii)
-              var tempCourse = course
-              
-              tempCourse.zc=tempCourseSchdele[ii].courseWeek-1
-              tempCourse.xq=tempCourseSchdele[ii].courseDay
-              tempCourse.title=tempCourseInfo.courseName
-              tempCourse.class=tempCourseInfo.courseType
-              tempCourse.content=`${tempCourseInfo.courseTecher} ${tempCourseSchdele[ii].courseRoom}`
-              tempCourse.start=tempCourseSchdele[ii].courseStartTime
-              tempCourse.end=tempCourseSchdele[ii].courseEndTime
-
-              console.log(tempCourse,ii)
-
-              events1.push(tempCourse)
-            }
-
-            this.events1=events1
-            
-          
-
-
-          }
-          
-          console.log(events1,1111)
-          this.mergeData()
-
-        })
-      })
-    })
-
-    
-
-
-
-
-
-    
-
-    
-   
+    this.loading=true
+    this.makeTimetable()
+    setTimeout(() => {
+      this.get_timetable()
+      this.loading=false
+    }, 1000);
   },
+
   watch: {
     events: {
       handler(newVal, oldVal) {
@@ -302,11 +167,17 @@ export default {
     },
     mergeData() {
       console.log("mergeData in")
+      console.log(this.zc,'zc')
+      console.log(this.events1,'mergeDatea event')
+
+      this.makeTimetable()
       // 合并数据
       if (this.events1.length > 0) {
         for (let i = 0; i < this.events1.length; i++) {
           // 获取星期几
-          if (this.events1[i].zc == this.zc) {
+          console.log(this.events1[i].zc,' ',this.zc)
+          if (this.events1[i].zc+1 == this.zc) {
+            console.log(this.events1[i],'done')
             let week = this.weeks[this.events1[i].xq - 1]
             this.timetable[this.events1[i].start - 1][week] = this.events1[i]
           }
@@ -446,6 +317,88 @@ export default {
           }
         }
       }
+    },
+    weekchange(change){
+      this.zc=this.zc+change
+      // this.get_timetable()
+      this.mergeData()
+
+    },
+    get_timetable(){
+      console.log(this.events1)
+      console.log('in')
+      var events1= []
+      var course = {
+        zc: '', //周次
+        xq: '', //星期
+        title: '',  //课程名称
+        class: '',  //课程类型
+        content: '',  //课程时间地点
+        start: '',  //开始节次
+        end: '' //结束节次
+      }
+
+      var userSchdule = ''  //选课ID列表
+      var courseInfo = '' //所有课程-详细信息
+      var courseSchdule = ''  //所有课程-课程表
+      
+      axios.get("http://localhost:8081/userSchedule/list").then(res=>{
+        // 筛选出该学生课表
+        userSchdule = res.data.filter(val=>(val.userID==this.$store.state.userInfo.userID)) 
+
+        axios.get("http://localhost:8081/courseInfo/list").then(res=>{
+          courseInfo = res.data
+          axios.get("http://localhost:8081/courseSchedule/list").then(res=>{
+            courseSchdule = res.data
+
+            console.log(userSchdule,courseInfo,courseSchdule)
+            for(var i=0;i<userSchdule.length;i++){
+              var tempCourseInfo = ''
+              var tempCourseSchdele = ''
+
+              //取出课程基本信息
+              tempCourseInfo = courseInfo.filter(val=>val.courseID==userSchdule[i].courseID)[0]
+              //取出课程课表信息
+              tempCourseSchdele = courseSchdule.filter(val=>val.courseID==userSchdule[i].courseID)
+
+
+              for(var ii=0;ii<tempCourseSchdele.length;ii++){
+                console.log(tempCourseSchdele[ii],ii)
+                var tempCourse = {
+                  zc: '', //周次
+                  xq: '', //星期
+                  title: '',  //课程名称
+                  class: '',  //课程类型
+                  content: '',  //课程时间地点
+                  start: '',  //开始节次
+                  end: '' //结束节次
+                }
+                
+                tempCourse.zc=tempCourseSchdele[ii].courseWeek-1
+                tempCourse.xq=tempCourseSchdele[ii].courseDay
+                tempCourse.title=tempCourseInfo.courseName
+                tempCourse.class=tempCourseInfo.courseType
+                tempCourse.content=`${tempCourseInfo.courseTecher} ${tempCourseSchdele[ii].courseRoom}`
+                tempCourse.start=tempCourseSchdele[ii].courseStartTime
+                tempCourse.end=tempCourseSchdele[ii].courseEndTime
+
+
+                events1.push(tempCourse)
+              }
+
+              this.events1=events1
+              
+            
+
+
+            }
+            
+            console.log(events1,'getTimetable')
+            this.mergeData()
+
+          })
+        })
+      })
     }
   }
 }
