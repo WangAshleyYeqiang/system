@@ -12,7 +12,7 @@
     </template>
     <el-descriptions-item>
       <template slot="label">
-        UserName
+        Name
       </template>
       Catherine
     </el-descriptions-item>
@@ -26,7 +26,7 @@
     <el-descriptions-item>
       <template slot="label">
 
-        Your_Type
+        Type
       </template>
       Student
     </el-descriptions-item>
@@ -39,35 +39,34 @@
     </el-descriptions-item>
     <el-descriptions-item>
       <template slot="label">
-     
-        City
+     Gender
       </template>
-      海口市
+      Male
     </el-descriptions-item>
     <el-descriptions-item>
       <template slot="label">
      
-        备注
+      School
       </template>
-      <el-tag size="small">海南大学</el-tag>
+      <el-tag size="small">Hainan University</el-tag>
     </el-descriptions-item>
-    <el-descriptions-item>
-      <template slot="label">
-       
-        School
-      </template>
-      <!-- 18100000000 -->
-    </el-descriptions-item>
-    <el-descriptions-item>
+   
+    <!-- <el-descriptions-item>
       <template slot="label">
 
         Location
       </template>
       海南省海口市美兰区人民大道 58号 
-    </el-descriptions-item>
+    </el-descriptions-item> -->
     <el-descriptions-item>
       <template slot="label">
       Last Login Time
+      </template>
+      
+    </el-descriptions-item>
+    <el-descriptions-item>
+      <template slot="label">
+      Create Time
       </template>
       
     </el-descriptions-item>
@@ -98,8 +97,8 @@
            width="180">
         </el-table-column>
        <el-table-column
-            prop="PRIZE"
-            label="PRIZE">
+            prop="Time"
+            label="Time">
         </el-table-column>
         </el-table>
   </div>
@@ -139,11 +138,11 @@ export default {
       tableData: [{
         Type: 'CET4',
         Grade: '610 POINTS',
-        PRIZE: 'National Second -Class Scholarship'
+        Time: 'June 17 of the 22-23 school year'
       }, {
         Type: 'CET6',
         Grade: '578 POINTS',
-        PRIZE: 'Third Prize in Group Programming Ladder Tournament'
+        Time: 'December 3 of the 23-24 school year'
       }, 
       ]
      
