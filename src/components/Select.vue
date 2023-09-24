@@ -2,54 +2,76 @@
   <div>
     <h1 class="text12">Course selection</h1>
 
-    <div style="">
+    <div style="margin-top: 30px;">
       <el-row>
-        <el-col :span="10">
-          <div class="innerbox">
-            <h1 class="textbox">Type:</h1>
-            <el-checkbox-group class="checkgroup" v-model="checkboxGroup1" size="small">
-              <el-checkbox-button style="" v-for="type in types" :label="type" :key="type">{{ type }}</el-checkbox-button>
-            </el-checkbox-group>
+        <el-col :span="8">
+          <div>
+            <el-row>
+              <el-col :span="4">
+                <h1>Type:</h1>
+              </el-col>
+              <el-col :span="20" :pull="3" style="margin-top: -5px;">
+                <el-checkbox-group v-model="checkboxGroup1" size="small">
+                  <el-checkbox-button v-for="type in types" :label="type" :key="type">{{ type
+                  }}</el-checkbox-button>
+                </el-checkbox-group>
+              </el-col>
+            </el-row>
           </div>
         </el-col>
-        <el-col :span="7">
-          <div class="innerbox1">
-            <h1 class="textbox1">Course ID:</h1>
-            <el-input style="width: 200px;position: relative; left: -45px;top: -25px;" v-model="input"
-              placeholder="Enter the course number"></el-input>
+
+        <el-col :span="8">
+          <div>
+            <el-row>
+              <el-col :span="4">
+                <h1>Course&nbsp;&nbsp;ID:</h1>
+              </el-col>
+              <el-col :span="20" :pull="3" style="margin-top: -7px;">
+                <el-input size="small" v-model="input" placeholder="Enter the course number"
+                  style="width: 200px"></el-input>
+              </el-col>
+            </el-row>
           </div>
         </el-col>
-        <el-col :span="7">
-          <div class="innerbox1">
-            <h1 class="textbox1">Tearcher:</h1>
-            <el-input style="width: 200px;position: relative; left: -50px;top: -28px;" v-model="input"
-              placeholder="Enter the teacher's name"></el-input>
+
+        <el-col :span="8">
+          <div>
+            <el-row>
+              <el-col :span="4">
+                <h1>Tearcher:</h1>
+              </el-col>
+              <el-col :span="20" :pull="3" style="margin-top: -7px;">
+                <el-input size="small" v-model="input" placeholder="Enter the teacher's name"
+                  style="width: 200px;"></el-input>
+              </el-col>
+            </el-row>
           </div>
         </el-col>
       </el-row>
     </div>
 
-    <div style="margin-top: 40px;">
+    <div style="margin-top: 30px;">
       <el-row>
-        <el-col :span="6" :pull="1">
-        <el-checkbox v-model="checked1" label="Filter full courses" border size="small"></el-checkbox>
+        <el-col :span="4" :pull="1" style="margin-left: -15px;">
+          <h1>Fliter:</h1>
         </el-col>
-        <el-col :span="6" :pull="2">
-          <el-checkbox  v-model="checked2" label="Filter conflict courses" border size="small"></el-checkbox>
+        <el-col :span="4" :pull="3" style="margin-top: -6px;">
+          <el-checkbox v-model="checked1" label="Filter full courses" border size="small"></el-checkbox>
         </el-col>
-        <el-col :span="6" :pull="2">
+        <el-col :span="4" :pull="3" style="margin-top: -6px;">
+          <el-checkbox v-model="checked2" label="Filter conflict courses" border size="small"></el-checkbox>
+        </el-col>
+        <el-col :span="4" :pull="3" style="margin-top: -6px;">
           <el-checkbox v-model="checked3" label="Filter restricted courses" border size="small"></el-checkbox>
         </el-col>
-        <el-col :span="3" :pull="1">
-          <el-button style="background-color: rgba(53,87,220,1); color: white; width: 150px;">Search</el-button>
-        </el-col>
-        <el-col :span="3" :pull="1">
-          <el-button style="background-color: rgba(53,87,220,1); color:white; width:150px;">Select</el-button>
+        <el-col :span="8" style="margin-top: -8px;">
+          <el-button
+            style="background-color: rgba(53,87,220,1); color: white; width: 150px; height: 35px; margin-right: -45px;">Search</el-button>
         </el-col>
       </el-row>
     </div>
 
-    <div style="margin-top: 40px;">
+    <div style="margin-top: 35px;">
       <el-table :data="tableData" style="width: 100%" max-height="250">
         <el-table-column fixed prop="courseID" label="Course ID" width="">
         </el-table-column>
@@ -61,20 +83,28 @@
         </el-table-column>
         <el-table-column prop="classSchedule " label="Class Schedule" width="">
         </el-table-column>
-        <el-table-column prop="status" label="Status" width="">
+        <el-table-column prop="num" label="Num" width="">
         </el-table-column>
+        <el-table-column fixed="right" label="操作" width="">
+          <template slot-scope="scope">
+            <el-button @click.native.prevent="deleteRow(scope.$index, tableData1)" type="text" size="small" disabled>
+              Select
+            </el-button>
+          </template>
+        </el-table-column>
+
       </el-table>
     </div>
 
     <div class="pagination">
-      <el-pagination background layout="prev, pager, next" :total="90">
+      <el-pagination background layout="prev, pager, next" :total="90" style="margin-left: -15px;">
       </el-pagination>
     </div>
 
-    <h1 class="text13">Selected Course</h1>
+    <h1 class="text13" style="margin-top: -10px;">Selected Course</h1>
 
-    <div style="margin-top: 30px;">
-      <el-table :data="tableData2" style="width: 100%" max-height="250">
+    <div style="margin-top: 20px;">
+      <el-table :data="tableData2" style="width: 100%" max-height="200">
 
         <el-table-column fixed prop="courseID" label="Course ID" width="">
         </el-table-column>
@@ -91,13 +121,13 @@
         <el-table-column prop="classSchedule" label="Class Schedule" width="">
         </el-table-column>
 
-        <el-table-column prop="status" label="Status" width="">
+        <el-table-column prop="brief" label="Brief" width="" >
         </el-table-column>
 
-        <el-table-column fixed="right" label="操作" width="120">
+        <el-table-column fixed="right" label="操作" width="">
           <template slot-scope="scope">
             <el-button @click.native.prevent="deleteRow(scope.$index, tableData2)" type="text" size="small">
-              移除
+              Remove
             </el-button>
           </template>
         </el-table-column>
@@ -127,6 +157,7 @@ export default {
         classType: 'required course',
         teacher: 'Asit',
         classSchedule: 'MONDAY',
+        num:'30/30',
         status: 'choose'
       }],
       tableData2: [{
@@ -135,8 +166,8 @@ export default {
         classType: 'required course',
         teacher: 'Asit',
         classSchedule: 'MONDAY',
-        status: 'choose'
-      },]
+        brief: 'xxxx'
+      }]
     };
   },
   methods: {
@@ -150,56 +181,25 @@ export default {
 </script>
 
 <style>
-.pagination{
+.pagination {
   margin-top: 10px;
-  margin-left:900px;
+  margin-left: 900px;
 }
+
 .text12 {
   font-size: 24px;
   font-weight: 700;
   width: 200px;
-  background-color: rgba(53, 87, 220, 1);
+  /* background-color: rgba(53, 87, 220, 1); */
   color: black;
 }
-.text13{
+
+.text13 {
   font-size: 24px;
   font-weight: 700;
   width: 200px;
-  background-color: rgba(53, 87, 220, 1);
+  /* background-color: rgba(53, 87, 220, 1); */
   color: black;
   margin-top: 30px;
-}
-.checkgroup {
-  position: relative;
-  top: -22px;
-  left: 10px;
-}
-
-.innerbox {
-
-  width: 400px;
-  height: 30px;
-  position: relative;
-  top: 30px;
-}
-
-.textbox {
-
-  position: relative;
-  left: -140px;
-}
-
-.innerbox1 {
-
-  width: 400px;
-  height: 30px;
-  position: relative;
-  top: 30px;
-}
-
-.textbox1 {
-
-  position: relative;
-  left: -200px;
 }
 </style>
