@@ -10,6 +10,7 @@ import My from '@/components/My.vue';
 import Select from '@/components/Select.vue';
 import Schdule from '@/components/Schdule.vue';
 import Serive from '@/components/Serive.vue';
+import Pay from '@/views/Pay.vue'
 
 
 const router = new VueRouter({
@@ -37,6 +38,7 @@ const router = new VueRouter({
 		{
 			path:'/home',
 			component:Home,
+			redirect:'/home/hall',
 			children: [
 				{
 					path: 'hall',
@@ -59,6 +61,10 @@ const router = new VueRouter({
 					component: Serive,
 				},
 			],
+		},
+		{
+			path: '/pay',
+			component: Pay
 		}
 	]
 })
