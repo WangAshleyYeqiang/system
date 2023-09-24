@@ -14,41 +14,41 @@
       <template slot="label">
         Name
       </template>
-      Catherine
+     {{$store.state.userInfo.userName}}
     </el-descriptions-item>
     <el-descriptions-item>
       <template slot="label">
 
         UserID
       </template>
-      000001
+      {{$store.state.userInfo.userID}}
     </el-descriptions-item>
     <el-descriptions-item>
       <template slot="label">
 
         Type
       </template>
-      Student
+      {{$store.state.userInfo.userType}}
     </el-descriptions-item>
     <el-descriptions-item>
       <template slot="label">
       
         Phone
       </template>
-      18100000000
+     {{$store.state.userInfo.userPhone}}
     </el-descriptions-item>
     <el-descriptions-item>
       <template slot="label">
      Gender
       </template>
-      Male
+      {{$store.state.userInfo.userGender}}
     </el-descriptions-item>
     <el-descriptions-item>
       <template slot="label">
      
       School
       </template>
-      <el-tag size="small">Hainan University</el-tag>
+      <el-tag size="small">{{$store.state.userInfo.userSchool}}</el-tag>
     </el-descriptions-item>
    
     <!-- <el-descriptions-item>
@@ -62,13 +62,13 @@
       <template slot="label">
       Last Login Time
       </template>
-      
+      {{$store.state.userInfo.userLastLoginTime}}
     </el-descriptions-item>
     <el-descriptions-item>
       <template slot="label">
       Create Time
       </template>
-      
+      {{$store.state.userInfo.userCreateTime}}
     </el-descriptions-item>
   </el-descriptions>
 
