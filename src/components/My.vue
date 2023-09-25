@@ -62,13 +62,15 @@
       <template slot="label">
       Last Login Time
       </template>
-      {{$store.state.userInfo.userLastLoginTime}}
+      {{standardTime1}}
+     
     </el-descriptions-item>
     <el-descriptions-item>
       <template slot="label">
       Create Time
       </template>
-      {{$store.state.userInfo.userCreateTime}}
+      {{standardTime2}}
+      
     </el-descriptions-item>
   </el-descriptions>
 
@@ -130,6 +132,11 @@
     
 </div>
 </template>
+
+
+
+
+
 <script>
 export default {
   name: "My",
@@ -144,11 +151,17 @@ export default {
         Grade: '578 POINTS',
         Time: 'December 3 of the 23-24 school year'
       }, 
-      ]
-     
+      ],
+      dbTime: '2023-09-25 15:30:00', // 假设从数据库中获取的时间数据
+      standardTime1: '', // 用于存储标准时间格式
+      standardTime2: '', // 用于存储标准时间格式
+
     }
   },
-      
+  mounted() {
+    // 在组件加载后，将数据库时间转换为标准时间格式
+    this.convertToStandardTime();
+  }, 
     
   methods:{
     signout_onClick() {
@@ -172,7 +185,31 @@ export default {
       });
       this.$router.push("/login/signin");
     },
+    convertToStandardTime() {
+      // 解析时间字符串为日期时间对象
+      const d1 = new Date(this.$store.state.userInfo.userLastLoginTime);
+      const d2 = new Date(this.$store.state.userInfo.userCreateTime);
+      // 将日期时间对象格式化为ISO 8601格式的字符串
       
+   
+      let year = d1.getFullYear();
+      let month = d1.getMonth() + 1;
+      let sun = d1.getDate();
+      let hours = d1.getHours();
+      let minutes = d1.getMinutes();
+         
+      let year1 = d2.getFullYear();
+      let month1 = d2.getMonth() + 1;
+      let sun1 = d2.getDate();
+      let hours1 = d2.getHours();
+      let minutes1 = d2.getMinutes();
+     
+      this.standardTime1 = `${year}-${month}-${sun}   ${hours}:${minutes}`;
+      this.standardTime2 = `${year1}-${month1}-${sun1}   ${hours1}:${minutes1}`;
+
+     
+    },
+  
   }
 
   

@@ -69,6 +69,7 @@
 
 <script>
 import axios from 'axios';
+import router from '@/router';
 export default {
   name: "Serive",
   methods: {
@@ -92,7 +93,9 @@ export default {
             console.log(ress)
             this.$store.state.userInfo=ress.data;
             this.$cookies.set("userInfo", ress.data, { expires: 7 })
+
           })
+          this.$router.push('/pay'); 
         }
       }).catch(err=>{
         this.$message({

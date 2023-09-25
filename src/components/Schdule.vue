@@ -3,7 +3,7 @@
 
     <div>
       <h1 style="text-align: center; font-size: 36px;
-      font-weight: 700;">Tintin's Timetable</h1>
+      font-weight: 700;">{{this.$store.state.userInfo.userName}}'s Timetable</h1>
     </div>
 
     <div class="main" style="width: 100%;"> 

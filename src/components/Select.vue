@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div v-loading="loading">
     <h1 class="text12">Course selection</h1>
 
     <div style="margin-top: 30px;">
@@ -12,7 +12,7 @@
               </el-col>
               <el-col :span="20" :pull="3" style="margin-top: -5px;">
                 <el-checkbox-group v-model="checkboxGroup1" size="small">
-                  <el-checkbox-button v-for="type in types" :label="type" :key="type">{{ type
+                  <el-checkbox-button  v-for="type in types" :label="type" :key="type">{{ type
                   }}</el-checkbox-button>
                 </el-checkbox-group>
               </el-col>
@@ -27,7 +27,7 @@
                 <h1>Course&nbsp;&nbsp;ID:</h1>
               </el-col>
               <el-col :span="20" :pull="3" style="margin-top: -7px;">
-                <el-input size="small" v-model="input" placeholder="Enter the course number"
+                <el-input size="small" v-model="input1" placeholder="Enter the course number"
                   style="width: 200px"></el-input>
               </el-col>
             </el-row>
@@ -41,7 +41,7 @@
                 <h1>Tearcher:</h1>
               </el-col>
               <el-col :span="20" :pull="3" style="margin-top: -7px;">
-                <el-input size="small" v-model="input" placeholder="Enter the teacher's name"
+                <el-input size="small" v-model="input2" placeholder="Enter the teacher's name"
                   style="width: 200px;"></el-input>
               </el-col>
             </el-row>
@@ -53,7 +53,7 @@
     <div style="margin-top: 30px;">
       <el-row>
         <el-col :span="4" :pull="1" style="margin-left: -15px;">
-          <h1>Fliter:</h1>
+          <h1>Filter:</h1>
         </el-col>
         <el-col :span="4" :pull="3" style="margin-top: -6px;">
           <el-checkbox v-model="checked1" label="Filter full courses" border size="small"></el-checkbox>
@@ -65,7 +65,7 @@
           <el-checkbox v-model="checked3" label="Filter restricted courses" border size="small"></el-checkbox>
         </el-col>
         <el-col :span="8" style="margin-top: -8px;">
-          <el-button
+          <el-button @click="filter"
             style="background-color: rgba(53,87,220,1); color: white; width: 150px; height: 35px; margin-right: -45px;">Search</el-button>
         </el-col>
       </el-row>
@@ -90,9 +90,12 @@
         </el-table-column>
         <el-table-column fixed="right" label="Operation" width="">
           <template slot-scope="scope">
-            <el-button @click="select_onClick(scope.row.courseID)" type="text" size="small">
+            <el-button @click="select_onClick(scope.row.courseID)"    type="text" size="small">
               Select
             </el-button>
+
+        
+
           </template>
         </el-table-column>
 
@@ -100,8 +103,8 @@
     </div>
 
     <div class="pagination">
-      <el-pagination background layout="prev, pager, next" :total="90" style="margin-left: -15px;">
-      </el-pagination>
+      <!-- <el-pagination background layout="prev, pager, next" :total="90" style="margin-left: -15px;">
+      </el-pagination> -->
     </div>
 
     <h1 class="text13" style="margin-top: -10px;">Selected Course</h1>
@@ -147,6 +150,7 @@
 </template>
 
 <script>
+import { Loading } from 'element-ui';
 import axios from "axios"
 const customAxios = axios.create({
   baseURL: 'http://localhost:8081'
@@ -157,8 +161,11 @@ export default {
   name: "Select",
   data() {
     return {
-      checkboxGroup1: ['Required Course'],
+      loading: null,
+      checkboxGroup1: [],
       types: courseOptions,
+      input1:'',
+      input2:'',
       checked1: true,
       checked2: false,
       checked3: false,
@@ -178,10 +185,37 @@ export default {
         teacher: 'Asit',
         classSchedule: 'MONDAY',
         brief: 'xxxx'
-      }]
+      }],
+      
     };
   },
   methods: {
+   
+    filter(){
+      this.get_tableData1();
+      this.get_tableData2();
+      console.log();
+      setTimeout(() => {
+      var tabledataf1=this.tableData;
+      if (this.checkboxGroup1.length==1){
+        if (this.checkboxGroup1[0]=="Required Course"){
+          tabledataf1=(this.tableData.filter(val=>val.classType=="Required"))
+        }
+        if (this.checkboxGroup1[0]=="Selective Course"){
+          tabledataf1=(this.tableData.filter(val=>val.classType=="Selective"))
+        }
+      }
+      if (this.input1!=''){
+          tabledataf1=(this.tableData.filter(val=>val.courseID==this.input1))
+      }
+      if (this.input2!=''){
+          tabledataf1=(this.tableData.filter(val=>val.teacher==this.input2))
+      }
+      this.tableData=tabledataf1;
+      }, 200);
+      
+    },
+
     deleteRow(index, rows) {
       rows.splice(index, 1);
     },
@@ -349,7 +383,7 @@ export default {
       })
     },
 
-
+    
     checkTimeConflict(timeSlotA, timeSlotB) {
       console.log(timeSlotA,timeSlotB)
       // 判断两个时间段是否存在重叠
@@ -381,8 +415,7 @@ export default {
       return false; // 没有冲突，返回 false
     },
 
-
-    select_onClick(courseID){
+    select_onClick1(courseID){
       console.log(courseID)
       var selectSchedule = []
       var selectCourseInfo = []
@@ -436,6 +469,24 @@ export default {
           })
         })
       })
+
+    },
+
+
+    select_onClick(courseID){
+      if (this.$store.state.userInfo.userPrivilege<3)
+      {
+        this.loading = Loading.service();
+        setTimeout(() => {
+          if (this.loading) {
+        this.loading.close();
+      }
+          this.select_onClick1(courseID)
+        }, 6000);
+      }
+      else{
+        this.select_onClick1(courseID)
+      }
     },
 
     remove_onClick(courseID){
@@ -458,8 +509,9 @@ export default {
       })
 
       
-    }
+    },
 
+   
 
   },
   mounted(){
@@ -475,6 +527,7 @@ export default {
 .pagination {
   margin-top: 10px;
   margin-left: 900px;
+  height: 50px;
 }
 
 .text12 {

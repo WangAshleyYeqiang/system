@@ -3,13 +3,13 @@
 
     <div>
       <el-menu :default-active="activeIndex" mode="horizontal" @select="handleSelect">
-        <el-menu-item index="2" style="width:25%"><i class="el-icon-user"></i><span slot="title"
+        <el-menu-item index="2" style="width:25%"  @click="router_onClick('/home/my')"><i class="el-icon-user"></i><span slot="title"
             class="el-menu-item.is-active text11">Personal information</span></el-menu-item>
-        <el-menu-item index="3" style="width:25%"><i class="el-icon-discount"></i><span slot="title"
-            class="el-menu-item.is-active text11">Course selection</span></el-menu-item>
-        <el-menu-item index="4" style="width:25%"><i class="el-icon-notebook-2"></i><span slot="title"
+        <el-menu-item index="3" style="width:25%"  @click="router_onClick('/home/select')"><i class="el-icon-discount"></i><span slot="title"
+            class="el-menu-item.is-active text11" >Course selection</span></el-menu-item>
+        <el-menu-item index="4" style="width:25%"  @click="router_onClick('/home/schdule')"><i class="el-icon-notebook-2"></i><span slot="title"
             class="el-menu-item.is-active text11">School timetable</span></el-menu-item>
-        <el-menu-item index="5" style="width:25%"><i class="el-icon-shopping-cart-1"></i><span slot="title"
+        <el-menu-item index="5" style="width:25%"  @click="router_onClick('/home/serive')"><i class="el-icon-shopping-cart-1"></i><span slot="title"
             class="el-menu-item.is-active text11">Upgrade serive</span></el-menu-item>
       </el-menu>
     </div>
@@ -51,6 +51,10 @@
 </template>
 
 <script>
+import axios from "axios"
+const customAxios = axios.create({
+  baseURL: 'http://localhost:8081'
+})
 export default {
   data() {
     return {
@@ -63,7 +67,78 @@ export default {
       }],
     }
   },
-  name: "Hall"
+  name: "Hall",
+  methods: {
+    get_tableData1(){
+      this.tableData=[]
+      var tableData = []
+      var courseInfoList = ''
+      var courseScheduleList = ''
+      var userScheduleList = ''
+      customAxios.get('/courseInfo/list').then(res=>{
+        courseInfoList=res.data
+
+        customAxios.get('/userSchedule/list').then(res=>{
+          userScheduleList=res.data
+        }).then(res=>{
+
+          customAxios.get('/courseSchedule/list').then(res=>{
+            courseScheduleList=res.data
+
+
+            for(var i=0;i<courseInfoList.length;i++){
+            var tempCourse={
+              courseID:'',
+              name:'',
+              classType:'',
+              teacher:'',
+              classSchedule:'',
+              num:'',
+              status:'',
+            }
+            tempCourse.courseID=courseInfoList[i].courseID
+            tempCourse.name=courseInfoList[i].courseName
+            tempCourse.classType=courseInfoList[i].courseType
+            tempCourse.teacher=courseInfoList[i].courseTecher
+            tempCourse.num=(userScheduleList.filter(val=>val.courseID==courseInfoList[i].courseID).length).toString()+' / '+courseInfoList[i].courseNum
+            
+            var schedule = courseScheduleList.filter(val=>val.courseID==courseInfoList[i].courseID)
+            const summarizedSchedule = this.summarizeSchedule(schedule);
+            console.log("11",summarizedSchedule)
+            tempCourse.classSchedule = this.displaySummarizedSchedule(summarizedSchedule);
+
+            console.log('tempCourse.classSchedule'+tempCourse.classSchedule)
+            console.log(tempCourse)
+
+            tableData.push(tempCourse)
+          }
+
+          this.tableData=tableData
+          console.log('tableData=',this.tableData)
+          })
+        })
+      })
+    },
+    router_onClick(path){
+    //console.log(this.$router)
+
+    if (path==this.$route.path){
+      this.$message({
+                  message: "You already at this page!",
+                  type: "warning",
+                });
+
+      return
+    }
+  console.log(path);
+  this.$router.push(path)
+  
+  },
+  },
+  mounted() {
+    this.get_tableData1()
+    
+  }, 
 }
 </script>
 
