@@ -17,7 +17,7 @@
     <div>
       <h1 class="text10">Schdule</h1>
       <el-row>
-        <el-col :span="13" style="display: flex; justify-content: start; margin-top: 10px;">
+        <!-- <el-col :span="13" style="display: flex; justify-content: start; margin-top: 10px;">
           <el-table :data="tableData" stripe style="width: 20%;">
             <el-table-column prop="CourseID" label="Course ID">
             </el-table-column>
@@ -30,8 +30,33 @@
             <el-table-column prop="Type" label="Type">
             </el-table-column>
           </el-table>
+        </el-col> -->
+        
+           <el-col :span="13" style="display: flex; justify-content: start; margin-top: 10px;">
+           
+              <el-table :data="tableData" stripe style="width: 200%;" max-height="500">
+                <el-table-column fixed prop="courseID" label="Course ID" width="">
+                </el-table-column>
+                <el-table-column prop="name" label="Course Name" width="">
+                </el-table-column>
+                <el-table-column prop="classType" label="Class Type" width="">
+                </el-table-column>
+                <el-table-column prop="teacher" label="Teacher" width="">
+                </el-table-column>
+                <el-table-column prop="classSchedule" label="Class Schedule" width="">
+                  <template slot-scope="scope">
+                    <div v-html="scope.row.classSchedule.replace(/\n/g, '<br>')"></div>
+                  </template>
+                </el-table-column>
+                
+        
+              </el-table>
+            
         </el-col>
+       
 
+
+        <!-- /////////////// -->
         <el-col :span="11" :pull="1" style="display: flex; justify-content: end;">
           <el-calendar style="width: 90%;">
             <template slot="dateCell" slot-scope="{ date,data}">
@@ -59,11 +84,13 @@ export default {
   data() {
     return {
       tableData: [{
-        CourseID:'001',
-        Subject: 'Java',
-        Date: '2004.02.02',
-        Teacher: 'Jason',
-        Type: 'Required',
+        courseID: '230342545',
+        name: 'Web',
+        classType: 'required course',
+        teacher: 'Asit',
+        classSchedule: 'MONDAY',
+        num:'30/30',
+        status: 'choose'
       }],
     }
   },
@@ -118,6 +145,62 @@ export default {
           })
         })
       })
+    },
+    summarizeSchedule(schedule) {
+      let summarizedSchedule = [];
+      let currentSchedule = schedule[0];
+      for (let i = 1; i < schedule.length; i++) {
+        console.log(currentSchedule,schedule[i])
+        if (
+          // currentSchedule.courseWeek === schedule[i].courseWeek &&
+          currentSchedule.courseDay === schedule[i].courseDay &&
+          currentSchedule.courseStartTime === schedule[i].courseStartTime &&
+          currentSchedule.courseEndTime === schedule[i].courseEndTime
+        ) {
+          continue;
+        } else {
+          const mergedSchedule = {
+            week: currentSchedule.courseWeek,
+            day: this.getWeekdayName(currentSchedule.courseDay),
+            start: currentSchedule.courseStartTime,
+            end: currentSchedule.courseEndTime,
+            lastWeek: schedule[i - 1].courseWeek, // 上次出现的周数
+          };
+          summarizedSchedule.push(mergedSchedule);
+          currentSchedule = schedule[i];
+        }
+      }
+      
+      if (currentSchedule) {
+        const mergedSchedule = {
+          week: currentSchedule.courseWeek,
+          day: this.getWeekdayName(currentSchedule.courseDay),
+          start: currentSchedule.courseStartTime,
+          end: currentSchedule.courseEndTime,
+          lastWeek: schedule[schedule.length - 1].courseWeek, // 上次出现的周数
+        };
+        summarizedSchedule.push(mergedSchedule);
+      }
+      return summarizedSchedule;
+    },
+    getWeekdayName(day) {
+      const weekdays = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
+      return weekdays[day - 1];
+    },
+    displaySummarizedSchedule(summarizedSchedule) {
+      let displayString = "";
+      for (let i = 0; i < summarizedSchedule.length; i++) {
+        let entry = summarizedSchedule[i];
+        if (entry.week === entry.lastWeek) {
+          displayString += `Week ${entry.week} ${entry.day} ${entry.start}-${entry.end}`;
+        } else {
+          displayString += `Week ${entry.week}-${entry.lastWeek} ${entry.day} ${entry.start}-${entry.end}`;
+        }
+        if (i < summarizedSchedule.length - 1) {
+          displayString += '\n';
+        }
+      }
+      return displayString;
     },
     router_onClick(path){
     //console.log(this.$router)
