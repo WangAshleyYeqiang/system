@@ -81,13 +81,16 @@
         </el-table-column>
         <el-table-column prop="teacher" label="Teacher" width="">
         </el-table-column>
-        <el-table-column prop="classSchedule " label="Class Schedule" width="">
+        <el-table-column prop="classSchedule" label="Class Schedule" width="">
+          <template slot-scope="scope">
+            <div v-html="scope.row.classSchedule.replace(/\n/g, '<br>')"></div>
+          </template>
         </el-table-column>
         <el-table-column prop="num" label="Num" width="">
         </el-table-column>
-        <el-table-column fixed="right" label="操作" width="">
+        <el-table-column fixed="right" label="Operation" width="">
           <template slot-scope="scope">
-            <el-button @click.native.prevent="deleteRow(scope.$index, tableData1)" type="text" size="small" disabled>
+            <el-button @click="select_onClick(scope.row.courseID)" type="text" size="small">
               Select
             </el-button>
           </template>
@@ -119,14 +122,17 @@
         </el-table-column>
 
         <el-table-column prop="classSchedule" label="Class Schedule" width="">
+          <template slot-scope="scope">
+            <div v-html="scope.row.classSchedule.replace(/\n/g, '<br>')"></div>
+          </template>
         </el-table-column>
 
         <el-table-column prop="brief" label="Brief" width="" >
         </el-table-column>
 
-        <el-table-column fixed="right" label="操作" width="">
+        <el-table-column fixed="right" label="Operation" width="">
           <template slot-scope="scope">
-            <el-button @click.native.prevent="deleteRow(scope.$index, tableData2)" type="text" size="small">
+            <el-button @click="remove_onClick(scope.row.courseID)" type="text" size="small">
               Remove
             </el-button>
           </template>
@@ -141,6 +147,11 @@
 </template>
 
 <script>
+import axios from "axios"
+const customAxios = axios.create({
+  baseURL: 'http://localhost:8081'
+})
+
 const courseOptions = ['Required Course', 'Selective Course'];
 export default {
   name: "Select",
@@ -173,7 +184,287 @@ export default {
   methods: {
     deleteRow(index, rows) {
       rows.splice(index, 1);
+    },
+
+    getWeekdayName(day) {
+      const weekdays = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
+      return weekdays[day - 1];
+    },
+
+    summarizeSchedule(schedule) {
+      let summarizedSchedule = [];
+      let currentSchedule = schedule[0];
+      for (let i = 1; i < schedule.length; i++) {
+        console.log(currentSchedule,schedule[i])
+        if (
+          // currentSchedule.courseWeek === schedule[i].courseWeek &&
+          currentSchedule.courseDay === schedule[i].courseDay &&
+          currentSchedule.courseStartTime === schedule[i].courseStartTime &&
+          currentSchedule.courseEndTime === schedule[i].courseEndTime
+        ) {
+          continue;
+        } else {
+          const mergedSchedule = {
+            week: currentSchedule.courseWeek,
+            day: this.getWeekdayName(currentSchedule.courseDay),
+            start: currentSchedule.courseStartTime,
+            end: currentSchedule.courseEndTime,
+            lastWeek: schedule[i - 1].courseWeek, // 上次出现的周数
+          };
+          summarizedSchedule.push(mergedSchedule);
+          currentSchedule = schedule[i];
+        }
+      }
+      
+      if (currentSchedule) {
+        const mergedSchedule = {
+          week: currentSchedule.courseWeek,
+          day: this.getWeekdayName(currentSchedule.courseDay),
+          start: currentSchedule.courseStartTime,
+          end: currentSchedule.courseEndTime,
+          lastWeek: schedule[schedule.length - 1].courseWeek, // 上次出现的周数
+        };
+        summarizedSchedule.push(mergedSchedule);
+      }
+      return summarizedSchedule;
+    },
+
+    displaySummarizedSchedule(summarizedSchedule) {
+      let displayString = "";
+      for (let i = 0; i < summarizedSchedule.length; i++) {
+        let entry = summarizedSchedule[i];
+        if (entry.week === entry.lastWeek) {
+          displayString += `Week ${entry.week} ${entry.day} ${entry.start}-${entry.end}`;
+        } else {
+          displayString += `Week ${entry.week}-${entry.lastWeek} ${entry.day} ${entry.start}-${entry.end}`;
+        }
+        if (i < summarizedSchedule.length - 1) {
+          displayString += '\n';
+        }
+      }
+      return displayString;
+    },
+
+    get_tableData1(){
+      this.tableData=[]
+      var tableData = []
+      var courseInfoList = ''
+      var courseScheduleList = ''
+      var userScheduleList = ''
+      customAxios.get('/courseInfo/list').then(res=>{
+        courseInfoList=res.data
+
+        customAxios.get('/userSchedule/list').then(res=>{
+          userScheduleList=res.data
+        }).then(res=>{
+
+          customAxios.get('/courseSchedule/list').then(res=>{
+            courseScheduleList=res.data
+
+
+            for(var i=0;i<courseInfoList.length;i++){
+            var tempCourse={
+              courseID:'',
+              name:'',
+              classType:'',
+              teacher:'',
+              classSchedule:'',
+              num:'',
+              status:'',
+            }
+            tempCourse.courseID=courseInfoList[i].courseID
+            tempCourse.name=courseInfoList[i].courseName
+            tempCourse.classType=courseInfoList[i].courseType
+            tempCourse.teacher=courseInfoList[i].courseTecher
+            tempCourse.num=(userScheduleList.filter(val=>val.courseID==courseInfoList[i].courseID).length).toString()+' / '+courseInfoList[i].courseNum
+            
+            var schedule = courseScheduleList.filter(val=>val.courseID==courseInfoList[i].courseID)
+            const summarizedSchedule = this.summarizeSchedule(schedule);
+            console.log("11",summarizedSchedule)
+            tempCourse.classSchedule = this.displaySummarizedSchedule(summarizedSchedule);
+
+            console.log('tempCourse.classSchedule'+tempCourse.classSchedule)
+            console.log(tempCourse)
+
+            tableData.push(tempCourse)
+          }
+
+          this.tableData=tableData
+          console.log('tableData=',this.tableData)
+          })
+        })
+      })
+    },
+
+    get_tableData2(){
+      this.tableData2=[]
+      var tableData = []
+      var courseInfoList = ''
+      var courseScheduleList = ''
+      var userScheduleList = ''
+      customAxios.get('/courseInfo/list').then(res=>{
+        courseInfoList=res.data
+
+        customAxios.get('/userSchedule/list').then(res=>{
+          userScheduleList=res.data
+        }).then(res=>{
+
+          customAxios.get('/courseSchedule/list').then(res=>{
+            courseScheduleList=res.data
+
+
+            for(var i=0;i<userScheduleList.length;i++){
+            var tempCourse={
+              courseID:'',
+              name:'',
+              classType:'',
+              teacher:'',
+              classSchedule:'',
+              brief:'',
+              status:'',
+            }
+            var tempCourseInfo = courseInfoList.filter(val=>val.courseID==userScheduleList[i].courseID)[0]
+
+            tempCourse.courseID=tempCourseInfo.courseID
+            tempCourse.name=tempCourseInfo.courseName
+            tempCourse.classType=tempCourseInfo.courseType
+            tempCourse.teacher=tempCourseInfo.courseTecher
+            tempCourse.brief=tempCourseInfo.courseBrief
+            
+            var schedule = courseScheduleList.filter(val=>val.courseID==tempCourseInfo.courseID)
+            const summarizedSchedule = this.summarizeSchedule(schedule);
+            console.log("11",summarizedSchedule)
+            tempCourse.classSchedule = this.displaySummarizedSchedule(summarizedSchedule);
+
+            console.log('tempCourse.classSchedule'+tempCourse.classSchedule)
+            console.log(tempCourse)
+
+            tableData.push(tempCourse)
+          }
+
+          this.tableData2=tableData
+          console.log('tableData=',this.tableData)
+          })
+        })
+      })
+    },
+
+
+    checkTimeConflict(timeSlotA, timeSlotB) {
+      console.log(timeSlotA,timeSlotB)
+      // 判断两个时间段是否存在重叠
+      if (
+        timeSlotA.courseWeek === timeSlotB.courseWeek &&
+        timeSlotA.courseDay === timeSlotB.courseDay &&
+        (
+          (timeSlotA.courseStartTime >= timeSlotB.courseStartTime && timeSlotA.courseStartTime < timeSlotB.courseEndTime) ||
+          (timeSlotA.courseEndTime > timeSlotB.courseStartTime && timeSlotA.courseEndTime <= timeSlotB.courseEndTime) ||
+          (timeSlotB.courseStartTime >= timeSlotA.courseStartTime && timeSlotB.courseStartTime < timeSlotA.courseEndTime) ||
+          (timeSlotB.courseEndTime > timeSlotA.courseStartTime && timeSlotB.courseEndTime <= timeSlotA.courseEndTime)
+        )
+      ) {
+        return true; // 存在时间上的重叠，返回 true
+      }
+
+      return false; // 不存在重叠，返回 false
+    },
+
+    checkScheduleConflict(schedule1, schedule2) {
+      for (const timeSlotA of schedule1) {
+        for (const timeSlotB of schedule2) {
+          if (this.checkTimeConflict(timeSlotA, timeSlotB)) {
+            return true; // 存在时间上的冲突，返回 true
+          }
+        }
+      }
+
+      return false; // 没有冲突，返回 false
+    },
+
+
+    select_onClick(courseID){
+      console.log(courseID)
+      var selectSchedule = []
+      var selectCourseInfo = []
+
+      var courseInfoList = ''
+      var courseScheduleList = ''
+      var userScheduleList = ''
+
+      customAxios.get('/userSchedule/list').then(res=>{
+        userScheduleList=res.data.filter(val=>val.userID==this.$store.state.userInfo.userID)
+        customAxios.get('courseSchedule/list').then(res=>{
+          courseScheduleList=res.data
+          customAxios.get('courseInfo/list').then(res=>{
+            courseInfoList=res.data
+
+            for(var i=0;i<userScheduleList.length;i++){
+              selectSchedule=selectSchedule.concat(courseScheduleList.filter(val=>val.courseID==userScheduleList[i].courseID))
+              // selectSchedule.push(courseScheduleList.filter(val=>val.courseID==userScheduleList[i].courseID))
+            }
+
+
+            var entryCourse = courseScheduleList.filter(val=>val.courseID==courseID)
+
+            var result = this.checkScheduleConflict(selectSchedule,entryCourse)
+
+            console.log(selectSchedule)
+            
+            if(result){
+              this.$message({
+                message:"Exist confilt course! Can not select this course.",
+                type:'error'
+              })
+            }else{
+              var entryCourseInfo={
+                id:'',
+                userID:this.$store.state.userInfo.userID,
+                courseID:courseID,
+                selectTime:new Date(),
+                selectPrivilege:this.$store.state.userInfo.userPrivilege,
+              }
+
+              customAxios.post('/userSchedule/add',entryCourseInfo)
+              this.get_tableData1()
+              this.get_tableData2()
+              this.$message({
+                message:'Successfully select course by CourseID='+courseID,
+                type:'success'
+              })
+            }
+
+          })
+        })
+      })
+    },
+
+    remove_onClick(courseID){
+      console.log('remove',courseID)
+      var id =''
+
+      customAxios.get('/userSchedule/list').then(res=>{
+        id=res.data.filter(val=>val.courseID==courseID)[0].id
+        // console.log(res.data)
+        customAxios.get('/userSchedule/deleteUserScheduleByID?id='+id).then(res=>{
+        console.log('res',res)
+        this.get_tableData1()
+        this.get_tableData2()
+
+        this.$message({
+          message:'Successfully remove course by CourseID='+courseID,
+          type:'success'
+        })
+      })
+      })
+
+      
     }
+
+
+  },
+  mounted(){
+    this.get_tableData1()
+    this.get_tableData2()
   },
 
 
