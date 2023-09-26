@@ -168,14 +168,24 @@ export default {
             console.log(res)
             
             if(res.data){
-              alert("Register Success")
+              this.$message({
+                message:'Register Success',
+                type:'success'
+              })
               this.$router.push('/login/signin');
             }else{
-              alert("Register Fail")
+              this.$message({
+                message:'Register Fail',
+                type:'error'
+              })
             }
           }).catch(err=>{
             if(err=='Error: Request failed with status code 500'){
-              alert(`${this.form.userID} already exist`)
+              
+              this.$message({
+                message:`${this.form.userID} already exist`,
+                type:'error'
+              })
             }
             console.log(err)
           })
@@ -183,7 +193,10 @@ export default {
           //
           console.log(userInfo)
         }else{
-          alert("error")
+          this.$message({
+            message:'Register Fail',
+            type:'error'
+          })
         }
       })
     },
