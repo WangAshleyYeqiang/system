@@ -20,7 +20,7 @@ Vue.use(VueCookies);
 const store = new Vuex.Store({
   state: {
     userInfo: {
-      userID:'',userName:'',userGender:'',userPhone:'',userSchool:'',userLastLoginTime:'',userCreateTime:'',userPassword:'',userPrivilege:'',userType:'',token:'',
+      userID: '', userName: '', userGender: '', userPhone: '', userSchool: '', userLastLoginTime: '', userCreateTime: '', userPassword: '', userPrivilege: '', userType: '', token: '',
     }
   },
   mutations: {
